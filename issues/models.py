@@ -54,7 +54,6 @@ class Comment(models.Model):
        
         comment = models.CharField(max_length=200)
         created_date = models.DateTimeField(auto_now_add=True)
-        updated_date = models.DateTimeField(auto_now=True)
         author = models.ForeignKey(User, related_name='comment_author', on_delete=models.CASCADE)
 
         def __unicode__(self):
