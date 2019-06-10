@@ -4,6 +4,8 @@ from django.core.urlresolvers import reverse
 from .forms import UserLoginForm, UserRegistrationForm
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
+from issues.models import Bug
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -48,7 +50,10 @@ def login(request):
 @login_required
 def profile(request):
     """A view that displays the profile page of a logged in user"""
-    return render(request, 'profile.html')
+    all_user_bugs = Bug.objects.filter(author=request.user)
+    bug_count = all_user_bugs.count()
+    print(all_user_bugs)
+    return render(request, 'profile.html', {'bug_count': bug_count ,'all_user_bugs': all_user_bugs })
 
 
 def register(request):
