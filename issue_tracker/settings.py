@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'home',
     'issues',
+    'avatar',
     
 ]
 
@@ -132,5 +133,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT = 'static/image'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
