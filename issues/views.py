@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Bug, Feature, Comment
+from .models import Bug, Feature, CommentBug, CommentFeature
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def all_bugs(request):
