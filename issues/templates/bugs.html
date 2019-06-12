@@ -21,7 +21,7 @@
                 <li class="disabled page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></li>
             {% endif %} 
             {% for i in bugs.paginator.page_range %} 
-                {% if issues.number == i %}
+                {% if bugs.number == i %}
                     <li class="active page-item"><a class="page-link">{{ i }}</a></li>
                 {% else %}
                 <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
