@@ -20,9 +20,6 @@ class Bug(models.Model):
         DONE = 'done'
     status = models.CharField(max_length=7, choices=Statuses.choices(), default='TODO')
 
-    def __unicode__(self):
-        return self.title
-
     def __str__(self):
         return self.title
         
@@ -44,20 +41,25 @@ class Feature(models.Model):
         DONE = 'done'
     status = models.CharField(max_length=7, choices=Statuses.choices(), default='TODO')
 
-    def __unicode__(self):
-        return self.title
-
     def __str__(self):
         return self.title
 
-class Comment(models.Model):
+class CommentBug(models.Model):
        
         comment = models.CharField(max_length=200)
         created_date = models.DateTimeField(auto_now_add=True)
-        author = models.ForeignKey(User, related_name='comment_author', on_delete=models.CASCADE)
+        author = models.ForeignKey(User, related_name='bug_comment_author', on_delete=models.CASCADE)
+        bug = models.ForeignKey(Bug, related_name='comment_bug', on_delete=models.CASCADE)
 
-        def __unicode__(self):
+        def __str__(self):
             return self.comment
+
+class CommentFeature(models.Model):
+       
+        comment = models.CharField(max_length=200)
+        created_date = models.DateTimeField(auto_now_add=True)
+        author = models.ForeignKey(User, related_name='feature_comment_author', on_delete=models.CASCADE)
+        feature = models.ForeignKey(Feature, related_name='comment_feature', on_delete=models.CASCADE)
 
         def __str__(self):
             return self.comment
