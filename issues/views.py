@@ -12,7 +12,7 @@ def all_bugs(request):
 
     # Pagination settings
     page = request.GET.get('page', 1)
-    paginator = Paginator(bug_list, 10)
+    paginator = Paginator(bug_list, 2)
     
     try:
         bugs = paginator.page(page)
