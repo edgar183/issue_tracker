@@ -2,11 +2,11 @@
 {% load bootstrap_tags %} 
 {% block content %}
 
- <form method="post" action="{% url 'bug_form' %}" >
+ <form method="post" action="{% url 'new_bug' %}">
     <fieldset class="form-group">
         <legend>Create a new bug</legend>
         {% csrf_token %} 
-        {{ form | as_bootstrap }}
+         {{ form | as_bootstrap }}
         <button type="submit" class="btn btn-primary">Create Bug</button>
     </fieldset>
 </form>
