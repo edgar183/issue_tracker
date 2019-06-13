@@ -2,6 +2,8 @@
 *.pyc
 .c9
 .~c9*
+.vscode/
+mil5/
 __pycache__/
 env.py
 static/image/avatars/
