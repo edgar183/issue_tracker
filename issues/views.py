@@ -44,16 +44,12 @@ def all_features(request):
     paginator = Paginator(feature_list, 2)
     
     try:
-        features = paginator.page(page)
-        
+        features = paginator.page(page)    
     except PageNotAnInteger:
         
-        features = paginator.page(1)
-        
-    except EmptyPage:
-        
+        features = paginator.page(1)   
+    except EmptyPage:   
         features = paginator.page(paginator.num_pages)
-
     return render(request, "features.html", {'features': features})
     
 def bug_detail(request, pk):
