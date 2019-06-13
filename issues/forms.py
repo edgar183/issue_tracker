@@ -1,12 +1,12 @@
 from django import forms
 from .models import Feature, Bug, CommentBug, CommentFeature
 
-class BugForm(forms.Form):
+class BugForm(forms.ModelForm):
     class Meta:
         model = Bug
         fields = ('title', 'description', 'tag')
         
-class FeatureForm(forms.Form):
+class FeatureForm(forms.ModelForm):
     class Meta:
         model = Feature
         fields = ('title', 'description', 'tag')
