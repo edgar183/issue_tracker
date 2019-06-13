@@ -3,7 +3,7 @@
 .c9
 .~c9*
 .vscode/
-mil5/
+env/
 __pycache__/
 env.py
 static/image/avatars/
