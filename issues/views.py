@@ -56,25 +56,36 @@ def all_features(request):
 
     return render(request, "features.html", {'features': features})
     
+def bug_detail(request, pk):
+    """
+    Create a view that returns a single
+    Bug object based on the post ID (pk) and
+    render it to the 'postdetail.html' template.
+    Or return a 404 error if the post is
+    not found
+    """
+    bug = get_object_or_404(Bug, pk=pk)
+    return render(request, "bugdetail.html", {'bug': bug})
+    
 @login_required()    
-def bug_form(request):
+def create_or_edit_bug(request, pk=None):
     """
-    Add new bug in system.
+     Create a view that allows us to create
+    or edit a bug depending if the Post ID
+    is null or not
     """
-    form = BugForm(request.POST or None)
-    # if request.method == "POST":
-    #         #     if form.is_valid():
-    #         form.instance.author = request.user
-    #         if form.instance.issue_type == 'FEATURE':
-    #             form.instance.price = 100
-    #         else:
-    #             form.instance.price = 0
-    #         #bug = form.save()
-            
-    #         return redirect(all_bugs)
-    # else:
-    #     form = BugForm()
-    return render(request, "bugform.html", {'form': form})
+    bug = get_object_or_404(Bug, pk=pk) if pk else None
+    if request.method == "POST":
+        bug_form = BugForm(request.POST or None, instance=bug)
+        if bug_form.is_valid():
+            bug_form.instance.author = request.user
+            bug = bug_form.save()
+            return redirect(bug_detail, bug.pk)
+    else:
+        bug_form = BugForm(instance=bug)
+    return render(request, "bugform.html", {'form': bug_form})
+
+
 
 
 # @login_required()
