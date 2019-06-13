@@ -4,15 +4,10 @@
  {% for bug in bugs %}
  <p>Title:{{ bug.title }}</p>
  <p>Description:{{ bug.description }}</p>
- <p>Date Created:{{ bug.created_date }}</p>
- <p>Date Updated:{{ bug.updated_date }}</p>
- <p>Is Resolved:{{ bug.is_resolved }}</p>
- <p>Resolved Date:{{ bug.resolved_dated }}</p>
- <p>Upvotes:{{ bug.upvotes }}</p>
- <p>Tag:{{ bug.tag }}</p>
- <p>Author:{{ bug.author }}</p>
+ <p>Status:{{ bug.status }}</p>
  <hr>
  {% endfor %}
+ <!-- Pagination -->
   {% if bugs.has_other_pages %}
         <ul class="pagination">
             {% if bugs.has_previous %}
