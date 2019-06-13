@@ -5,7 +5,9 @@
  <p>Title:{{ bug.title }}</p>
  <p>Description:{{ bug.description }}</p>
  <p>Status:{{ bug.status }}</p>
+ <a href="{% url 'bug_detail' bug.id %}" role="button" class="btn btn-default">More</a>
  <hr>
+ 
  {% endfor %}
  <!-- Pagination -->
   {% if bugs.has_other_pages %}
