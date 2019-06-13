@@ -13,8 +13,8 @@
                             </div>
                             <div class="userData ml-3">
                                 <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">{{ user.first_name}}</h2>
-                                <h6 class="d-block">{{ bug_count }} Bugs</h6>
-                                <h6 class="d-block">300 Features</h6>
+                                <h6 class="d-block">{{ bug_count }} - Bugs</h6>
+                                <h6 class="d-block">{{ feature_count }} - Features</h6>
                                 <a href="{% url 'avatar_change' %}">Change your avatar</a>
                             </div>
                         </div>
@@ -66,11 +66,21 @@
                     <hr />
                     <div class="row">
                         <div class="col-sm-3 col-md-2 col-5">
-                            <label style="font-weight:bold;">All issues</label>
+                            <label style="font-weight:bold;">All Bugs</label>
                         </div>
                         <div class="col-md-8 col-6">
                             {% for bug in all_user_bugs %}
                             <p>{{ bug.title }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2 col-5">
+                            <label style="font-weight:bold;">All Features</label>
+                        </div>
+                        <div class="col-md-8 col-6">
+                            {% for feature in all_user_features %}
+                            <p>{{ feature.title }}</p>
                             {% endfor %}
                         </div>
                     </div>
