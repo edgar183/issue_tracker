@@ -11,7 +11,12 @@ class FeatureForm(forms.Form):
         model = Feature
         fields = ('title', 'description', 'tag')
         
-class CommentForm(forms.ModelForm):
+class CommentBugForm(forms.ModelForm):
     class Meta:
         model = CommentBug
+        fields = ('comment',)
+
+class CommentFeatureForm(forms.ModelForm):
+    class Meta:
+        model = CommentFeature
         fields = ('comment',)
