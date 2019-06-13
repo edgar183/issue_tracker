@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from .forms import UserLoginForm, UserRegistrationForm
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
-from issues.models import Bug
+from issues.models import Bug, Feature
 from django.contrib.auth.models import User
 
 
@@ -52,8 +52,11 @@ def profile(request):
     """A view that displays the profile page of a logged in user"""
     all_user_bugs = Bug.objects.filter(author=request.user)
     bug_count = all_user_bugs.count()
-    print(all_user_bugs)
-    return render(request, 'profile.html', {'bug_count': bug_count ,'all_user_bugs': all_user_bugs })
+     
+    all_user_features = Feature.objects.filter(author=request.user)
+    feature_count = all_user_features.count()
+    
+    return render(request, 'profile.html', {'bug_count': bug_count ,'all_user_bugs': all_user_bugs, 'feature_count': feature_count, 'all_user_features': all_user_features })
 
 
 def register(request):
