@@ -87,9 +87,7 @@
             <div class="col-md-8 col-6">
               {% for feature in all_user_features %}
               <p>
-                <a href="{% url 'feature_detail' feature.id %}">{{
-                  feature.title
-                }}</a>
+                <a href="{% url 'feature_detail' feature.id %}">{{ feature.title }}</a>
               </p>
               <hr />
               {% endfor %}
