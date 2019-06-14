@@ -1,7 +1,10 @@
-{% extends 'base.html'%} {% block content %}
+{% extends 'base.html'%} {% block content %} {% if bug.author == request.user %}
 <a class="btn btn-primary" href="{% url 'edit_bug' bug.id %}" role="button"
   >Edit Bug</a
 >
+{% else %}
+<p class="text-danger">This is not your bug</p>
+{% endif %}
 <p>Title:{{ bug.title }}</p>
 <p>Description:{{ bug.description }}</p>
 <p>Date Created:{{ bug.created_date }}</p>

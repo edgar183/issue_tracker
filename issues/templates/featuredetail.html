@@ -1,10 +1,14 @@
-{% extends 'base.html'%} {% block content %}
+{% extends 'base.html'%} {% block content %} 
+{% if feature.author == request.user %}
 <a
   class="btn btn-primary"
   href="{% url 'edit_feature' feature.id %}"
   role="button"
   >Edit Feature</a
 >
+{% else %}
+<p class="text-danger">This is not your feature</p>
+{% endif %}
 <p>Title:{{ feature.title }}</p>
 <p>Description:{{ feature.description }}</p>
 <p>Date Created:{{ feature.created_date }}</p>
