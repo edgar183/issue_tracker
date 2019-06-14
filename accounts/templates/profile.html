@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-md-8 col-6">
                             {% for bug in all_user_bugs %}
-                            <p>{{ bug.title }}</p>
+                            <p><a href="{% url 'bug_detail' bug.id %}">{{ bug.title }}</a></p>
                             <hr>
                             {% endfor %}
                         </div>
