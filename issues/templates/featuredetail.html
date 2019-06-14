@@ -1,0 +1,20 @@
+{% extends 'base.html'%} {% block content %}
+
+<p>Title:{{ feature.title }}</p>
+<p>Description:{{ feature.description }}</p>
+<p>Date Created:{{ feature.created_date }}</p>
+<p>Date Updated:{{ feature.updated_date }}</p>
+<p>Is Implemented:{{ feature.is_implemented }}</p>
+<p>Implemented Date:{{ feature.implemented_date }}</p>
+<p>Upvotes:{{ feature.upvotes }}</p>
+<p>Tag:{{ feature.tag }}</p>
+<p>Author:{{ feature.author }}</p>
+<p>Price:{{ feature.price }}</p>
+<hr />
+<a
+  class="btn btn-primary"
+  href="{% url 'edit_feature' feature.id %}"
+  role="button"
+  >Edit Feature</a
+>
+{% endblock %}
