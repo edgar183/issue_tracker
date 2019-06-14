@@ -81,7 +81,7 @@
                         </div>
                         <div class="col-md-8 col-6">
                             {% for feature in all_user_features %}
-                            <p>{{ feature.title }}</p>
+                            <p><a href="{% url 'feature_detail' feature.id %}">{{ feature.title }}</a></p>
                             <hr>
                             {% endfor %}
                         </div>
