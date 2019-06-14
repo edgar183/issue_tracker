@@ -1,4 +1,4 @@
-{% load static from staticfiles %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
     <!-- Custom style files -->
     <link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css" />
-    <link rel="icon" type="image/png" href="{% static 'image/favison_issue.png' %}">
+    <link rel="icon" href="{% static '/image/favison_issue.png' %}" type="image/png"/>
     <title>Issue Tracker</title>
 </head>
 <body>
