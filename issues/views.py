@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.contrib import messages
 from .models import Bug, Feature, CommentBug, CommentFeature
 from .forms import BugForm, FeatureForm, CommentBugForm, CommentFeatureForm
 
@@ -42,7 +43,6 @@ def bug_detail(request, pk):
     comments = CommentBug.objects.filter(bug=pk)
     return render(request, "bugdetail.html", {'bug': bug, 'comments': comments})
 
-
 @login_required()
 def create_or_edit_bug(request, pk=None):
     """
@@ -62,8 +62,29 @@ def create_or_edit_bug(request, pk=None):
     return render(request, "bugform.html", {'form': bug_form})
 
 @login_required()
-def create_or_edit_bug_comment(request, pk=None):
-    return render(request, "bugform.html")
+def create_or_edit_bug_comment(request, bug_pk, pk=None):
+    bug = get_object_or_404(Bug, pk=bug_pk)
+    comment = get_object_or_404(CommentBug, pk=pk) if pk else None
+    if request.method == "POST":
+        form = CommentBugForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.instance.author = request.user
+            form.instance.bug = bug
+            form.save()
+            messages.success(request, 'New Comment Added!')
+            return redirect(bug_detail, bug_pk)
+    else:
+        form = CommentBugForm(instance=comment)
+    return render(request, 'bugcommentform.html', {'form': form})
+
+@login_required()
+def upvote_bug(request, pk):
+    bug = Bug.objects.get(pk=pk)
+    bug.upvotes += 1
+    bug.save()
+    messages.success(request, 'Bug upvoted!')
+    return redirect('bug_detail', pk)
+
 
 def all_features(request):
     """
@@ -85,7 +106,8 @@ def all_features(request):
     except EmptyPage:
         features = paginator.page(paginator.num_pages)
     return render(request, "features.html", {'features': features})
-    
+
+
 def feature_detail(request, pk):
     """
     Create a view that returns a single
@@ -117,37 +139,3 @@ def create_or_edit_feature(request, pk=None):
         feature_form = FeatureForm(instance=feature)
     return render(request, "featureform.html", {'form': feature_form})
 
-# @login_required()
-# def edit_issue(request, pk=None):
-#     """
-#     Create a view that allows us to edit a issue depending if the Issue ID
-#     is null or not
-#     """
-#     issue = get_object_or_404(Issue, pk=pk) if pk else None
-#     user = request.user
-#     # Prevents a non-staff user from editing another users comment
-#     if not request.user.is_staff:
-#         if user.id != request.user.id:
-#             messages.success(
-#                 request,
-#                 'You Do Not Have Permission To Edit this Issue'
-#             )
-#             return redirect(issue_detail, issue.pk)
-
-#     if request.method == "POST":
-#         form = IssueForm(request.POST, request.FILES, instance=issue)
-#         if form.is_valid():
-
-#             form.instance.author = request.user
-#             if form.instance.issue_type == 'FEATURE':
-#                 form.instance.price = 100
-#             else:
-#                 form.instance.price = 0
-#             issue = form.save()
-#             notify.send(request.user, recipient=issue.author, verb="updated your Issue: " + issue.title)
-#             messages.success(request, 'Issue Edited with success!')
-
-#             return redirect(issue_detail, issue.pk)
-#     else:
-#         form = IssueForm(instance=issue)
-#     return render(request, 'issueform.html', {'form': form})
