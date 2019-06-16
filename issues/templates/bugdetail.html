@@ -1,7 +1,5 @@
 {% extends 'base.html'%} {% block content %} {% if bug.author == request.user %}
-<a class="btn btn-primary" href="{% url 'edit_bug' bug.id %}" role="button"
-  >Edit Bug</a
->
+<a class="btn btn-primary" href="{% url 'edit_bug' bug.id %}" role="button">Edit Bug</a>
 {% else %}
 <p class="text-danger">This is not your bug</p>
 {% endif %}
@@ -11,9 +9,30 @@
 <p>Date Updated:{{ bug.updated_date }}</p>
 <p>Is Resolved:{{ bug.is_resolved }}</p>
 <p>Resolved Date:{{ bug.resolved_dated }}</p>
-<p>Upvotes:{{ bug.upvotes }}</p>
+<p>Upvotes:{{ bug.upvotes }}
+  
+</p>
 <p>Tag:{{ bug.tag }}</p>
 <p>Author:{{ bug.author }}</p>
 <p>Status:{{ bug.status }}</p>
 <hr />
-{% endblock %}
+<h3>Comments </h3>
+<a class="btn-floating btn waves-effect waves-light green" href="#">Add New Comment</a>
+{% for comment in comments %}
+<div class="card-panel blue-grey lighten-4">
+  <div class="row">
+    <div class="col s12 m8">
+      <p><b>User: </b>{{ comment.author }} <b>Created: </b>{{ comment.created_date }} <b>Updated:
+        </b>{{ comment.updated_date }}</p>
+      <p>
+        <h6><b>Comment: </b>{{ comment.comment }}
+      </p>
+      </h6>
+      {% endfor %}
+      <div class="col s12 m4">
+        {% if user == comment.author or user.is_staff %}
+        <a class="btn-floating btn waves-effect waves-light blue" href="#">Edit
+          Comment</a>
+        {% endif %}
+      </div>
+      {% endblock %}
