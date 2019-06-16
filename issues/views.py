@@ -30,7 +30,6 @@ def all_bugs(request):
 
     return render(request, "bugs.html", {'bugs': bugs})
 
-
 def bug_detail(request, pk):
     """
     Create a view that returns a single
@@ -40,7 +39,8 @@ def bug_detail(request, pk):
     not found
     """
     bug = get_object_or_404(Bug, pk=pk)
-    return render(request, "bugdetail.html", {'bug': bug})
+    comments = CommentBug.objects.filter(bug=pk)
+    return render(request, "bugdetail.html", {'bug': bug, 'comments': comments})
 
 
 @login_required()
@@ -60,6 +60,10 @@ def create_or_edit_bug(request, pk=None):
     else:
         bug_form = BugForm(instance=bug)
     return render(request, "bugform.html", {'form': bug_form})
+
+@login_required()
+def create_or_edit_bug_comment(request, pk=None):
+    return render(request, "bugform.html")
 
 def all_features(request):
     """
