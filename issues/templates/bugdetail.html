@@ -30,7 +30,7 @@
       </h6>
       <div class="col s12 m4">
         {% if user == comment.author or user.is_staff %}
-        <a class="btn-floating btn waves-effect waves-light blue" href="{% url 'edit_bug_coment' bug.id comment.id">Edit
+        <a class="btn-floating btn waves-effect waves-light blue" href="{% url 'edit_bug_comment' bug.id comment.id">Edit
           Comment</a>
         {% endif %}
         {% endfor %}
