@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load avatar_tags %} {% block content %}
+{% extends "base.html" %} {% load bootstrap_tags %} {% load avatar_tags %} {% block content %}
 <div class="container ">
   <div class="row">
     <div class="col-12">
@@ -10,10 +10,7 @@
                 {% avatar user 150 class="img-thumbnail img-fluid" %}
               </div>
               <div class="userData ml-3">
-                <h2
-                  class="d-block"
-                  style="font-size: 1.5rem; font-weight: bold"
-                >
+                <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">
                   {{ user.first_name }}
                 </h2>
                 <h6 class="d-block">{{ bug_count }} - Bugs</h6>
@@ -22,6 +19,19 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <label style="font-weight:bold;">Profile Info</label>
+              <hr>
+              <form method="post" action="{% url 'profile' %}" class="accountform">
+                <fieldset class="form-group">
+                  {% csrf_token %} {{ form | as_bootstrap }}
+                  <button type="submit" class="btn btn-primary">Update account</button>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+          <hr />
           <div class="row">
             <div class="col-sm-3 col-md-2 col-5">
               <label style="font-weight:bold;">Full Name</label>
