@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import messages, auth
 from django.core.urlresolvers import reverse
-from .forms import UserLoginForm, UserRegistrationForm
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from issues.models import Bug, Feature
 from django.contrib.auth.models import User
-
+from .forms import UserLoginForm, UserRegistrationForm, UserUpdateForm
 
 # Create your views here.
 def index(request):
@@ -55,8 +54,23 @@ def profile(request):
      
     all_user_features = Feature.objects.filter(author=request.user)
     feature_count = all_user_features.count()
-    
-    return render(request, 'profile.html', {'bug_count': bug_count ,'all_user_bugs': all_user_bugs, 'feature_count': feature_count, 'all_user_features': all_user_features })
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your account has been updated!")
+            return redirect(reverse('profile'))
+    else:
+        form = UserUpdateForm(instance=request.user)
+
+    context = {
+        'bug_count': bug_count ,
+        'all_user_bugs': all_user_bugs,
+        'feature_count': feature_count, 
+        'all_user_features': all_user_features,
+        'form': form
+     }
+    return render(request, 'profile.html', context)
 
 
 def register(request):
