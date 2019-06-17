@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ '119aaaf7d67e49c6ad0e249829cfc7fe.vfs.cloud9.eu-west-1.amazonaws.com', '127.0.0.1']
+ALLOWED_HOSTS = ['119aaaf7d67e49c6ad0e249829cfc7fe.vfs.cloud9.eu-west-1.amazonaws.com', '127.0.0.1']
 
 
 # Application definition
@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'home',
     'issues',
     'avatar',
-    
 ]
 
 MIDDLEWARE = [
@@ -83,7 +82,7 @@ WSGI_APPLICATION = 'issue_tracker.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 if "DATABASE_URL" in os.environ:
-    DATABASES = { 'default': dj_database_url.parse(os.environ.get('DATABASE_URL')) }
+    DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 else:
     print("Postgres URL not foi=und, usding sqlite instead")
     DATABASES = {
@@ -135,6 +134,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/image')
 MEDIA_URL = '/static/image/'
