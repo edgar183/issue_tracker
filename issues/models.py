@@ -34,7 +34,7 @@ class Feature(models.Model):
     upvotes = models.IntegerField(default=0)
     tag = models.CharField(max_length=30, blank=True, null=True)
     author = models.ForeignKey(User,related_name='feature_author', on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=2, default=10.00)
     class Statuses(ChoiceEnum):
         TODO = 'todo'
         DOING = 'doing'
