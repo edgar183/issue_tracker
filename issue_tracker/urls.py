@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views import static
 from accounts import urls as urls_accounts
 from issues import urls as urls_issues
 from issues.views import all_bugs
-from django.views import static
 from .settings import MEDIA_ROOT
 
 urlpatterns = [
@@ -27,6 +27,6 @@ urlpatterns = [
     url(r'^accounts/', include(urls_accounts)),
     url(r'^avatar/', include('avatar.urls')),
     url(r'^issues/', include(urls_issues)),
-    url(r'^static/image(?P<path>.*)$', static.serve,{'document_root': MEDIA_ROOT}),
+    url(r'^static/image(?P<path>.*)$', static.serve,{'document_root': MEDIA_ROOT}) ,
     
 ]
