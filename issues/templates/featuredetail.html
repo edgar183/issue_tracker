@@ -1,11 +1,6 @@
-{% extends 'base.html'%} {% block content %} 
+{% extends 'base.html'%} {% block content %}
 {% if feature.author == request.user %}
-<a
-  class="btn btn-primary"
-  href="{% url 'edit_feature' feature.id %}"
-  role="button"
-  >Edit Feature</a
->
+<a class="btn btn-primary" href="{% url 'edit_feature' feature.id %}" role="button">Edit Feature</a>
 {% else %}
 <p class="text-danger">This is not your feature</p>
 {% endif %}
@@ -15,7 +10,9 @@
 <p>Date Updated:{{ feature.updated_date }}</p>
 <p>Is Implemented:{{ feature.is_implemented }}</p>
 <p>Implemented Date:{{ feature.implemented_date }}</p>
-<p>Upvotes:{{ feature.upvotes }}</p>
+<p>Upvotes:{{ feature.upvotes }}
+  <a class="btn-floating btn-small waves-effect waves-light teal" href="{% url 'upvote_feature' feature.id %}">Up vote</a>
+</p>
 <p>Tag:{{ feature.tag }}</p>
 <p>Author:{{ feature.author }}</p>
 <p>Price:{{ feature.price }}</p>
