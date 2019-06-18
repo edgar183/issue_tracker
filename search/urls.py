@@ -1,7 +1,7 @@
 
 from django.conf.urls import url
-from .views import do_search
+from .views import search
 
 urlpatterns = [
-    url(r'^$', do_search, name='search')
+    url(r'^$', search, name='search')
 ]
