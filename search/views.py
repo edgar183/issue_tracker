@@ -1,7 +1,11 @@
 from django.shortcuts import render
-from issues.models import Bug
+from itertools import chain
+from django.db.models import Q
+from issues.models import Bug, Feature
 
-# Create your views here.
-def do_search(request):
-    bugs = Bug.objects.filter(title__icontains=request.GET['q'])
-    return render(request, "bugs.html", {"bugs": bugs})
+
+def search(request):
+  bugs = Bug.objects.filter(Q(title__contains=request.GET['q']) | Q(tag__contains=request.GET['q']))
+  feature = Feature.objects.filter(Q(title__contains=request.GET['q']) | Q(tag__contains=request.GET['q']))
+  results = chain(bugs, feature)
+  return render(request, "results.html", {"results": results})
