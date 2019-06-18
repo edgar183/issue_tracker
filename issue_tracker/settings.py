@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'home',
     'issues',
     'avatar',
+    'search',
 ]
 
 MIDDLEWARE = [
