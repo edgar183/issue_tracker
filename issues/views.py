@@ -117,7 +117,8 @@ def feature_detail(request, pk):
     not found
     """
     feature = get_object_or_404(Feature, pk=pk)
-    return render(request, "featuredetail.html", {'feature': feature})
+    comments = CommentFeature.objects.filter(feature=pk)
+    return render(request, "featuredetail.html", {'feature': feature, 'comments': comments})
 
 
 @login_required()
@@ -138,6 +139,22 @@ def create_or_edit_feature(request, pk=None):
     else:
         feature_form = FeatureForm(instance=feature)
     return render(request, "featureform.html", {'form': feature_form})
+
+@login_required()
+def create_or_edit_feature_comment(request, feature_pk, pk=None):
+    feature = get_object_or_404(Feature, pk=feature_pk)
+    comment = get_object_or_404(CommentFeature, pk=pk) if pk else None
+    if request.method == "POST":
+        form = CommentFeatureForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.instance.author = request.user
+            form.instance.feature = feature
+            form.save()
+            messages.success(request, 'New Comment Added!')
+            return redirect(feature_detail, feature_pk)
+    else:
+        form = CommentFeatureForm(instance=comment)
+    return render(request, 'featurecommentform.html', {'form': form})
 
 @login_required()
 def upvote_feature(request, pk):
