@@ -20,6 +20,7 @@ from django.views import static
 from accounts import urls as urls_accounts
 from issues import urls as urls_issues
 from issues.views import all_bugs
+from search import urls as urls_search
 from .settings import MEDIA_ROOT
 
 urlpatterns = [
@@ -28,6 +29,7 @@ urlpatterns = [
     url(r'^accounts/', include(urls_accounts)),
     url(r'^avatar/', include('avatar.urls')),
     url(r'^issues/', include(urls_issues)),
+    url(r'^search/', include(urls_search)),
     url(r'^static/image(?P<path>.*)$', static.serve,{'document_root': MEDIA_ROOT}) ,
     
 ]
