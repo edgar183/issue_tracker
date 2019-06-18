@@ -139,3 +139,10 @@ def create_or_edit_feature(request, pk=None):
         feature_form = FeatureForm(instance=feature)
     return render(request, "featureform.html", {'form': feature_form})
 
+@login_required()
+def upvote_feature(request, pk):
+    feature = Feature.objects.get(pk=pk)
+    feature.upvotes += 1
+    feature.save()
+    messages.success(request, 'Feature upvoted!')
+    return redirect('feature_detail', pk)
