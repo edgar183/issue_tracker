@@ -17,4 +17,22 @@
 <p>Author:{{ feature.author }}</p>
 <p>Price:{{ feature.price }}</p>
 <hr />
+<h3>Comments </h3>
+<a class="btn-floating btn waves-effect waves-light green" href="{% url 'new_feature_comment' feature.id %}">Add New Comment</a>
+{% for comment in comments %}
+<div class="card-panel blue-grey lighten-4">
+  <div class="row">
+    <div class="col s12 m8">
+      <p>{{ comment.id }}<b>User: </b>{{ comment.author }} <b>Created: </b>{{ comment.created_date }} <b>Updated:
+        </b>{{ comment.updated_date }}</p>
+      <p>
+        <h6><b>Comment: </b>{{ comment.comment }}
+      </p>
+      </h6>
+      <div class="col s12 m4">
+        {% if user == comment.author %}
+        <a class="btn-floating btn waves-effect waves-light blue" href="{% url 'edit_feature_comment' feature.id comment.id">Edit Comment</a>
+        {% endif %}
+        {% endfor %}
+      </div>
 {% endblock %}
