@@ -1,5 +1,5 @@
 {% extends 'base.html'%} {% block content %}
-{% if feature.author == request.user %}
+{% if feature.author == request.user or user.is_staff%}
 <a class="btn btn-primary" href="{% url 'edit_feature' feature.id %}" role="button">Edit Feature</a>
 {% else %}
 <p class="text-danger">This is not your feature</p>
