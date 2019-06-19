@@ -17,6 +17,16 @@
 <p>Author:{{ feature.author }}</p>
 <p>Price:{{ feature.price }}</p>
 <hr />
+<form method="post" action="{% url 'add_to_cart' feature.id %}">
+  {% csrf_token %}
+  <div class="input-group">
+      <input name="quantity" type="number" min="1" max="999" class="form-control" placeholder="Quantity">
+      <span class="input-group-btn">
+          <button class="btn btn-success" type="submit">Add to Cart</button>
+      </span>
+  </div>
+</form>
+<!-- Comments -->
 <h3>Comments </h3>
 <a class="btn-floating btn waves-effect waves-light green" href="{% url 'new_feature_comment' feature.id %}">Add New Comment</a>
 {% for comment in comments %}
