@@ -1,6 +1,11 @@
 {% extends 'base.html'%} {% block content %}
 {% if feature.author == request.user or user.is_staff%}
 <a class="btn btn-primary" href="{% url 'edit_feature' feature.id %}" role="button">Edit Feature</a>
+<form method="post" action="{% url 'delete_feature' feature.id %}" class="accountform">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete</button>
+  </fieldset>
+</form>
 {% else %}
 <p class="text-danger">This is not your feature</p>
 {% endif %}
