@@ -89,14 +89,14 @@ def upvote_bug(request, pk):
     messages.success(request, 'Bug upvoted!')
     return redirect('bug_detail', pk)
 
-
+@login_required()
 def delete_bug(request, pk=None):
     if request.method == 'POST':
         bug_id = int(pk)
         obj = get_object_or_404(Bug, pk=bug_id)
         obj.delete()
 
-        return redirect('index')
+        return redirect('bugs')
 
 
 def all_features(request):
@@ -178,3 +178,12 @@ def upvote_feature(request, pk):
     feature.save()
     messages.success(request, 'Feature upvoted!')
     return redirect('feature_detail', pk)
+
+@login_required()
+def delete_feature(request, pk=None):
+    if request.method == 'POST':
+        feature_id = int(pk)
+        obj = get_object_or_404(Feature, pk=feature_id)
+        obj.delete()
+
+        return redirect('features')
