@@ -31,6 +31,7 @@ def all_bugs(request):
 
     return render(request, "bugs.html", {'bugs': bugs})
 
+
 def bug_detail(request, pk):
     """
     Create a view that returns a single
@@ -42,6 +43,7 @@ def bug_detail(request, pk):
     bug = get_object_or_404(Bug, pk=pk)
     comments = CommentBug.objects.filter(bug=pk)
     return render(request, "bugdetail.html", {'bug': bug, 'comments': comments})
+
 
 @login_required()
 def create_or_edit_bug(request, pk=None):
@@ -61,6 +63,7 @@ def create_or_edit_bug(request, pk=None):
         bug_form = BugForm(instance=bug)
     return render(request, "bugform.html", {'form': bug_form})
 
+
 @login_required()
 def create_or_edit_bug_comment(request, bug_pk, pk=None):
     bug = get_object_or_404(Bug, pk=bug_pk)
@@ -77,6 +80,7 @@ def create_or_edit_bug_comment(request, bug_pk, pk=None):
         form = CommentBugForm(instance=comment)
     return render(request, 'bugcommentform.html', {'form': form})
 
+
 @login_required()
 def upvote_bug(request, pk):
     bug = Bug.objects.get(pk=pk)
@@ -84,6 +88,15 @@ def upvote_bug(request, pk):
     bug.save()
     messages.success(request, 'Bug upvoted!')
     return redirect('bug_detail', pk)
+
+
+def delete_bug(request, pk=None):
+    if request.method == 'POST':
+        bug_id = int(pk)
+        obj = get_object_or_404(Bug, pk=bug_id)
+        obj.delete()
+
+        return redirect('index')
 
 
 def all_features(request):
@@ -140,6 +153,7 @@ def create_or_edit_feature(request, pk=None):
         feature_form = FeatureForm(instance=feature)
     return render(request, "featureform.html", {'form': feature_form})
 
+
 @login_required()
 def create_or_edit_feature_comment(request, feature_pk, pk=None):
     feature = get_object_or_404(Feature, pk=feature_pk)
@@ -155,6 +169,7 @@ def create_or_edit_feature_comment(request, feature_pk, pk=None):
     else:
         form = CommentFeatureForm(instance=comment)
     return render(request, 'featurecommentform.html', {'form': form})
+
 
 @login_required()
 def upvote_feature(request, pk):
