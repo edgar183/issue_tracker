@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
 from django.contrib import messages, auth
 from django.core.urlresolvers import reverse
 from django.template.context_processors import csrf
@@ -95,3 +95,11 @@ def register(request):
 
     args = {'user_form': user_form}
     return render(request, 'register.html', args)
+
+def delete_user(request, pk=None):
+    if request.method == 'POST':
+        user_id = int(pk)
+        user_profile = get_object_or_404(User, pk=request.user.id)
+        user_profile.delete()
+        return redirect('register')
+    
