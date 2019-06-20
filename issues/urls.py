@@ -11,6 +11,7 @@ from .views import (
     upvote_feature, 
     create_or_edit_feature_comment,
     delete_bug,
+    delete_feature,
     )
 
 
@@ -33,4 +34,5 @@ urlpatterns = [
     url(r'^feature/(?P<feature_pk>\d+)/new/$', create_or_edit_feature_comment, name='new_feature_comment'),
     url(r'feature/(?P<feature_pk>\d+)/(?P<pk>\d+)/edit/$', create_or_edit_feature_comment, name='edit_feature_comment'),
     url(r'^(?P<pk>\d+)/upvote/$', upvote_feature, name='upvote_feature'),
+    url(r'feature/(?P<pk>\d+)/delete/$', delete_feature, name='delete_feature'),
 ]
