@@ -1,5 +1,10 @@
 {% extends 'base.html'%} {% block content %} {% if bug.author == request.user or user.is_staff%}
-<a class="btn btn-primary" href="{% url 'edit_bug' bug.id %}" role="button">Edit Bug</a>
+<a class="btn btn-secondary" href="{% url 'edit_bug' bug.id %}" role="button">Edit Bug</a>
+<form method="post" action="{% url 'delete_bug' bug.id %}" class="accountform">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete</button>
+  </fieldset>
+</form>
 {% else %}
 <p class="text-danger">This is not your bug</p>
 {% endif %}
