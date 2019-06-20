@@ -29,6 +29,11 @@
                   <button type="submit" class="btn btn-primary">Update account</button>
                 </fieldset>
               </form>
+              <form method="post" action="{% url 'delete_user' user.id %}" class="accountform">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-primary">Delete account</button>
+                </fieldset>
+              </form>
             </div>
           </div>
           <hr />
