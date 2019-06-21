@@ -1,8 +1,8 @@
 {% extends 'base.html'%} {% block content %} {% if bug.author == request.user or user.is_staff%}
 <a class="btn btn-secondary" href="{% url 'edit_bug' bug.id %}" role="button">Edit Bug</a>
 <form method="post" action="{% url 'delete_bug' bug.id %}" class="accountform">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Delete</button>
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Delete</button>
   </fieldset>
 </form>
 {% else %}
@@ -23,6 +23,13 @@
 <hr />
 <h3>Comments </h3>
 <a class="btn-floating btn waves-effect waves-light green" href="{% url 'new_bug_comment' bug.id %}">Add New Comment</a>
+{% if bug.author == request.user or user.is_staff%}
+<form method="post" action="#" class="accountform">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Delete</button>
+  </fieldset>
+</form>
+{% endif %}
 {% for comment in comments %}
 <div class="card-panel blue-grey lighten-4">
   <div class="row">
