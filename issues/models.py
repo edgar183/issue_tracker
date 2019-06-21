@@ -48,6 +48,7 @@ class Feature(models.Model):
 class CommentBug(models.Model):     
     comment = models.CharField(max_length=200)
     created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, related_name='bug_comment_author', on_delete=models.CASCADE)
     bug = models.ForeignKey(Bug, related_name='comment_bug', on_delete=models.CASCADE)
 
@@ -58,6 +59,7 @@ class CommentFeature(models.Model):
        
     comment = models.CharField(max_length=200)
     created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, related_name='feature_comment_author', on_delete=models.CASCADE)
     feature = models.ForeignKey(Feature, related_name='comment_feature', on_delete=models.CASCADE)
     def __str__(self):
