@@ -12,6 +12,8 @@ from .views import (
     create_or_edit_feature_comment,
     delete_bug,
     delete_feature,
+    delete_bug_comment,
+
     )
 
 
@@ -25,6 +27,7 @@ urlpatterns = [
     url(r'bug/(?P<bug_pk>\d+)/(?P<pk>\d+)/edit/$', create_or_edit_bug_comment, name='edit_bug_comment'),
     url(r'bug/(?P<pk>\d+)/upvote/$', upvote_bug, name='upvote_bug'),
     url(r'bug/(?P<pk>\d+)/delete/$', delete_bug, name='delete_bug'),
+    url(r'^(?P<pk>\d+)/delete/$', delete_bug_comment, name='delete_comment'),
 
     # feature urls
     url(r'^features/', all_features, name='features'),

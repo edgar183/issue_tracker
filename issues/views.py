@@ -91,13 +91,28 @@ def upvote_bug(request, pk):
 
 @login_required()
 def delete_bug(request, pk=None):
-    if request.method == 'POST':
-        bug_id = int(pk)
-        obj = get_object_or_404(Bug, pk=bug_id)
-        obj.delete()
+    bug_id = int(pk)
+    obj = get_object_or_404(Bug, pk=bug_id)
+    if request.user == obj.user or request.user.is_staff: 
+        if request.method == 'POST':
+            bug_id = int(pk)
+            obj = get_object_or_404(Bug, pk=bug_id)
+            obj.delete()
 
-        return redirect('bugs')
+            return redirect('bugs')
+    else:
+         messages.success(request, 'You do not have premission to delete this bug.')
 
+def delete_bug_comment(request, pk=None):
+    comment_id = int(pk)
+    obj = get_object_or_404(CommentBug, pk=comment_id)
+    if request.user == obj.user or request.user.is_staff:   
+        if request.method == 'POST':
+            obj.delete()
+            messages.success(request, 'The comment has been deleted.')
+            return redirect('bug_detail')
+    else:
+         messages.success(request, 'You do not have premission to delete this comment.')
 
 def all_features(request):
     """

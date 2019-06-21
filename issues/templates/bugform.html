@@ -5,6 +5,7 @@
     <legend>Create a new bug</legend>
     {% csrf_token %}
     {{ form | as_bootstrap }}
+    
     <button type="submit" class="btn btn-primary">Create Bug</button>
   </fieldset>
 </form>
