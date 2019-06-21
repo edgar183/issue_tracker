@@ -1,10 +1,19 @@
-{% extends 'base.html'%} {% load bootstrap_tags %} {% block content %}
+{% extends 'base.html'%} {% load crispy_forms_tags %} {% block content %}
 
 <form method="post" enctype="multipart/form-data">
   <fieldset class="form-group">
     <legend>Create a new bug</legend>
     {% csrf_token %}
-    {{ form | as_bootstrap }}
+    {{ form.title|as_crispy_field }}
+    {{ form.description|as_crispy_field  }}
+    {{ form.tag|as_crispy_field  }}
+    {% if feature.author == request.user or user.is_staff%}
+  <h3>For staff use</h3>
+  <label for="status">Is bug fixed? </label>
+  {{ form.is_resolved|as_crispy_field  }}
+  {{ form.status|as_crispy_field }}
+  <hr>
+  {% endif %}
     <button type="submit" class="btn btn-primary">Create Feature</button>
   </fieldset>
 </form>
