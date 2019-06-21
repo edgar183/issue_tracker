@@ -11,7 +11,7 @@ class Bug(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     is_resolved = models.BooleanField(default=False)
-    resolved_date = models.DateTimeField(blank=True, null=True)
+    resolved_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     upvotes = models.IntegerField(default=0)
     tag = models.CharField(max_length=30, blank=True, null=True)
     author = models.ForeignKey(User,related_name='bug_author', on_delete=models.CASCADE)
@@ -19,7 +19,7 @@ class Bug(models.Model):
         TODO = 'todo'
         DOING = 'doing'
         DONE = 'done'
-    status = models.CharField(max_length=7, choices=Statuses.choices(), default='TODO')
+    status = models.CharField(max_length=7, choices=Statuses.choices(), default='TODO', blank=True)
 
     def __str__(self):
         return self.title
@@ -31,7 +31,7 @@ class Feature(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     is_implemented = models.BooleanField(default=False)
-    implemented_date = models.DateTimeField(blank=True, null=True)
+    implemented_date = models.DateTimeField(auto_now=True, blank=True, null=True)
     upvotes = models.IntegerField(default=0)
     tag = models.CharField(max_length=30, blank=True, null=True)
     author = models.ForeignKey(User,related_name='feature_author', on_delete=models.CASCADE)
@@ -40,7 +40,7 @@ class Feature(models.Model):
         TODO = 'todo'
         DOING = 'doing'
         DONE = 'done'
-    status = models.CharField(max_length=7, choices=Statuses.choices(), default='TODO')
+    status = models.CharField(max_length=7, choices=Statuses.choices(), default='TODO', blank=True)
 
     def __str__(self):
         return self.title
