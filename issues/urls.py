@@ -20,22 +20,22 @@ from .views import (
 urlpatterns = [
     # bug urls
     url(r'^bugs/', all_bugs, name='bugs'),
-    url(r'^newbug/$', create_or_edit_bug, name='new_bug'),
+    url(r'^new_bug/$', create_or_edit_bug, name='new_bug'),
     url(r'^bug/(?P<pk>\d+)/$', bug_detail, name='bug_detail'),
-    url(r'^bug/(?P<pk>\d+)/edit/$', create_or_edit_bug, name='edit_bug'),
-    url(r'^bug/(?P<bug_pk>\d+)/new/$', create_or_edit_bug_comment, name='new_bug_comment'),
-    url(r'bug/(?P<bug_pk>\d+)/(?P<pk>\d+)/edit/$', create_or_edit_bug_comment, name='edit_bug_comment'),
+    url(r'^bug/(?P<pk>\d+)/edit_bug/$', create_or_edit_bug, name='edit_bug'),
+    url(r'^bug/(?P<bug_pk>\d+)/new_commet/$', create_or_edit_bug_comment, name='new_bug_comment'),
+    url(r'bug/(?P<bug_pk>\d+)/comment/(?P<pk>\d+)/edit/$', create_or_edit_bug_comment, name='edit_bug_comment'),
     url(r'bug/(?P<pk>\d+)/upvote/$', upvote_bug, name='upvote_bug'),
-    url(r'bug/(?P<pk>\d+)/delete/$', delete_bug, name='delete_bug'),
-    url(r'^(?P<pk>\d+)/delete/$', delete_bug_comment, name='delete_comment'),
+    url(r'bug/(?P<pk>\d+)/delete_bug/$', delete_bug, name='delete_bug'),
+    url(r'^(?P<pk>\d+)/delete_comment/$', delete_bug_comment, name='delete_comment'),
 
     # feature urls
     url(r'^features/', all_features, name='features'),
-    url(r'^newfeature/$', create_or_edit_feature, name='new_feature'),
+    url(r'^new_feature/$', create_or_edit_feature, name='new_feature'),
     url(r'^feature/(?P<pk>\d+)/$', feature_detail, name='feature_detail'),
-    url(r'^feature/(?P<pk>\d+)/edit/$', create_or_edit_feature, name='edit_feature'),
-    url(r'^feature/(?P<feature_pk>\d+)/new/$', create_or_edit_feature_comment, name='new_feature_comment'),
-    url(r'feature/(?P<feature_pk>\d+)/(?P<pk>\d+)/edit/$', create_or_edit_feature_comment, name='edit_feature_comment'),
+    url(r'^feature/(?P<pk>\d+)/edit_feature/$', create_or_edit_feature, name='edit_feature'),
+    url(r'^feature/(?P<feature_pk>\d+)/new_comment/$', create_or_edit_feature_comment, name='new_feature_comment'),
+    url(r'feature/(?P<feature_pk>\d+)/comments/(?P<pk>\d+)/edit/$', create_or_edit_feature_comment, name='edit_feature_comment'),
     url(r'^(?P<pk>\d+)/upvote/$', upvote_feature, name='upvote_feature'),
-    url(r'feature/(?P<pk>\d+)/delete/$', delete_feature, name='delete_feature'),
+    url(r'feature/(?P<pk>\d+)/delete_feature/$', delete_feature, name='delete_feature'),
 ]
