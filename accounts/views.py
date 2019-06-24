@@ -93,7 +93,7 @@ def register(request):
     else:
         user_form = UserRegistrationForm()
 
-    args = {'user_form': user_form}
-    return render(request, 'register.html', args)
+    context = {'user_form': user_form}
+    return render(request, 'register.html', context)
 
     
