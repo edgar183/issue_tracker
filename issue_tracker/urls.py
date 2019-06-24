@@ -16,14 +16,14 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.views import static
+from django.conf import settings
+from django.conf.urls.static import static
 from accounts import urls as urls_accounts
 from issues import urls as urls_issues
 from issues.views import all_bugs
 from search import urls as urls_search
 from cart import urls as urls_cart
 from checkout import urls as urls_checkout
-from .settings import MEDIA_ROOT
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -33,6 +33,6 @@ urlpatterns = [
     url(r'^search/', include(urls_search)),
     url(r'^cart/', include(urls_cart)),
     url(r'^checkout/', include(urls_checkout)),
-    url(r'^media/(?P<path>.*)$', static.serve,{'document_root': MEDIA_ROOT}) ,
     
-]
+    
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

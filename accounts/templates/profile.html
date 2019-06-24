@@ -8,10 +8,6 @@
             <div class="d-flex justify-content-start">
               <div class="image-container">
                 <img src="{{ user.profile.image.url }}" class="img-thumbnail rounded-circle account-img" />
-                <div class="middle">
-                  <input type="button" class="btn btn-secondary" id="btnChangePicture" value="Change" />
-                  <input type="file" style="display: none;" id="profilePicture" name="file" />
-                </div>
               </div>
               <div class="userData ml-3">
                 <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">
@@ -27,9 +23,10 @@
             <div class="col-sm-12">
               <label style="font-weight:bold;">Profile Info</label>
               <hr>
-              <form method="post" action="{% url 'profile' %}" class="accountform">
+              <form method="POST" action="{% url 'profile' %}" enctype="multipart/form-data" class="accountform">
                 <fieldset class="form-group">
-                  {% csrf_token %} {{ form | crispy }}
+                  {% csrf_token %} {{ u_form|crispy }}
+                  {{ p_form|crispy }}
                   <button type="submit" class="btn btn-primary">Update account</button>
                 </fieldset>
               </form>
