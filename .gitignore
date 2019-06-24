@@ -6,5 +6,4 @@
 env
 __pycache__/
 env.py
-static/image/avatars/
-staticfiles
+media/
