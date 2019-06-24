@@ -5,7 +5,7 @@ from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from issues.models import Bug, Feature
 from django.contrib.auth.models import User
-from .forms import UserLoginForm, UserRegistrationForm, UserUpdateForm
+from .forms import UserLoginForm, UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 
 # Create your views here.
 def index(request):
@@ -55,20 +55,24 @@ def profile(request):
     all_user_features = Feature.objects.filter(author=request.user)
     feature_count = all_user_features.count()
     if request.method == 'POST':
-        form = UserUpdateForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
             messages.success(request, "Your account has been updated!")
             return redirect(reverse('profile'))
     else:
-        form = UserUpdateForm(instance=request.user)
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
 
     context = {
         'bug_count': bug_count ,
         'all_user_bugs': all_user_bugs,
         'feature_count': feature_count, 
         'all_user_features': all_user_features,
-        'form': form
+        'u_form': u_form,
+        'p_form': p_form
      }
     return render(request, 'profile.html', context)
 
