@@ -93,7 +93,7 @@ def upvote_bug(request, pk):
 def delete_bug(request, pk=None):
     bug_id = int(pk)
     obj = get_object_or_404(Bug, pk=bug_id)
-    if request.user == obj.user or request.user.is_staff: 
+    if obj.author == request.user or request.user.is_staff: 
         if request.method == 'POST':
             bug_id = int(pk)
             obj = get_object_or_404(Bug, pk=bug_id)
