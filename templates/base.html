@@ -64,6 +64,9 @@
           </div>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+          </li>
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'view_cart' %}">Cart
             {% if product_count > 0 %}
             <label class="badge badge-warning">{{ product_count }}</label>
@@ -99,6 +102,7 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.src.js"></script>
 </body>
 
 </html>
