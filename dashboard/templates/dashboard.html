@@ -17,6 +17,11 @@
   </div>
 </div>
 <div class="row">
+  <div id="issue_type_container" class="col-12 " data-url="{% url 'get_issue_type_json' %}">
+    <canvas id="issueTypeChart"></canvas>
+  </div>
+</div>
+<div class="row">
   <div id="bug_status_container" class="col-12 col-md-6" data-url="{% url 'get_bug_status_json' %}">
     <canvas id="bugPieChart"></canvas>
   </div>
@@ -129,120 +134,55 @@
     }
 
   });
-  //   $.ajax({
-  //     url: $("#bug_status_container").attr("data-url"),
-  //     dataType: 'json',
-  //     success: function (data) {
-  //       Highcharts.chart("bug_status_container", data);
-  //     }
-  //   });
-  //  $.ajax({
-  //     url: $("#feature_status_container").attr("data-url"),
-  //     dataType: 'json',
-  //     success: function (data) {
-  //       Highcharts.chart("feature_status_container", data);
-  //     }
-  //   });
+  $.ajax({
+    method: "GET",
+    url: $("#issue_type_container").attr("data-url"),
+    dataType: 'json',
+    success: function (data) {
+      lables = data.lables
+      status_count = data.count
+      var ctx = document.getElementById('issueTypeChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: lables,
+          datasets: [{
+            backgroundColor: [
+              "rgb(27, 33, 155, 0.5)",
+              "rgb(32, 155, 27, 0.5)"
+            ],
+            hoverBackgroundColor: [
+              "rgb(27, 33, 155, 0.8)",
+              "rgb(32, 155, 27, 0.8)"
+            ],
+            data: status_count,
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              },
+            }]
+          },
+          legend: { display: false },
+          title: {
+            display: true,
+            text: 'Number Of Issues',
+            position: 'bottom',
+            fontSize: 18
+          }
+        }
+      });
+    },
+    error: function (error_data) {
+      console.log("error")
+      console.log(error_data)
+    }
 
-        // $.ajax({
-        //   url: $("#feature_upvotes_container").attr("data-url"),
-        //   dataType: 'json',
-        //   success: function (data) {
-        //     Highcharts.chart("feature_upvotes_container", data);
-        //   }
-        // });
-        // $(document).ready(function() {
+  });
 
-        //     var chart = new Highcharts.Chart({
-        //             chart: {
-        //                 renderTo: 'completed_daily_container',
-        //                 type: 'pie',
-        //                 backgroundColor:'transparent',
-
-        //             },
-        //             plotOptions: {
-        //                 pie: {
-        //                     innerSize: '70%'
-        //                 }
-        //             },
-        //             title: {
-        //                 text: 'Issues Resolved Today:',
-        //                 style: { 'color': 'black' }
-
-        //             },
-        //             subtitle: {
-        //                 text: '{{completed_daily}}',
-        //                 align: 'center',
-        //                 verticalAlign: 'middle',
-        //                 style: { "fontSize": "10em", 'color': 'black' },
-        //                 y: 15
-        //             },
-        //             credits: { enabled: false },
-
-        //         });
-        //   });
-
-        //   $(document).ready(function() {
-
-        //     var chart = new Highcharts.Chart({
-        //             chart: {
-        //                 renderTo: 'completed_weekly_container',
-        //                 type: 'pie',
-        //                 backgroundColor:'transparent',
-
-        //             },
-        //             plotOptions: {
-        //                 pie: {
-        //                     innerSize: '70%'
-        //                 }
-        //             },
-        //             title: {
-        //                 text: 'Issues Resolved in the past 7 days:',
-        //                 style: { 'color': 'black' }
-
-        //             },
-        //             subtitle: {
-        //                 text: '{{completed_weekly}}',
-        //                 align: 'center',
-        //                 verticalAlign: 'middle',
-        //                 style: { "fontSize": "10em", 'color': 'black' },
-        //                 y: 15
-        //             },
-        //             credits: { enabled: false },
-
-        //         });
-        //   });
-
-        //   $(document).ready(function() {
-
-        //     var chart = new Highcharts.Chart({
-        //             chart: {
-        //                 renderTo: 'completed_monthly_container',
-        //                 type: 'pie',
-        //                 backgroundColor:'transparent',
-
-        //             },
-        //             plotOptions: {
-        //                 pie: {
-        //                     innerSize: '70%'
-        //                 }
-        //             },
-        //             title: {
-        //                 text: 'Issues Resolved in the past 28 days:',
-        //                 style: { 'color': 'black' }
-
-        //             },
-        //             subtitle: {
-        //                 text: '{{completed_monthly}}',
-        //                 align: 'center',
-        //                 verticalAlign: 'middle',
-        //                 style: { "fontSize": "10em", 'color': 'black' },
-        //                 y: 15
-        //             },
-        //             credits: { enabled: false },
-
-        //         });
-        //   });
 </script>
 
 {% endblock %}
