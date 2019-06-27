@@ -24,23 +24,16 @@ def chart(request):
     #  return render(request, "dashboard.html", {'completed_daily': str(completed_daily), 'completed_weekly': str(completed_weekly), 'completed_monthly': str(completed_monthly)})
     return render(request, "dashboard.html")
 
-# def get_issue_type_json(request):
-#     bug_dataset = Bug.objects.values('type') \
-#         .exclude(issue_type='') \
-#         .annotate(total=Count('issue_type')) \
-#         .order_by('issue_type')
 
-#     chart = {
-#         'chart': {'type': 'column'},
-#         'title': {'text': 'Issue Type'},
-#         'xAxis': {'type': "category"},
-#         'series': [{
-#             'name': 'Issue Type',
-#             'data': list(map(lambda row: {'name': [row['issue_type']], 'y': row['total']}, dataset))
-#         }]
-#     }
-
-#     return JsonResponse(chart)
+def get_issue_type_json(request):
+    lables = ["Bugs", "Features"]
+    count_bugs = Bug.objects.all().count()
+    count_features = Feature.objects.all().count()
+    data = {
+        'lables': lables,
+        'count': [count_bugs, count_features],
+    }
+    return JsonResponse(data)
 
 
 def get_bug_status_json(request):
@@ -70,11 +63,12 @@ def get_feature_status_json(request):
 
 
 def get_bug_upvotes_json(request):
-    dataset = Bug.objects.values('upvotes', 'title').exclude(upvotes=0).order_by('upvotes')
+    dataset = Bug.objects.values('upvotes', 'title').exclude(
+        upvotes=0).order_by('upvotes')
     print(dataset)
     data = {
         'dataset': 'dataset',
-        
+
     }
 
     return JsonResponse(data)
