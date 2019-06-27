@@ -44,42 +44,37 @@ def chart(request):
 
 
 def get_bug_status_json(request):
-    dataset = Bug.objects.values('status').exclude(
-        status='').annotate(total=Count('status')).order_by('status')
-    chart = {
-        'chart': {'type': 'pie'},
-        'title': {'text': 'Bug Status'},
-        'series': [{
-            'name': 'Bug Status',
-            'data': list(map(lambda row: {'name': [row['status']], 'y': row['total']}, dataset))
-        }]
+    lables = ["Todo", "Doing", "Done"]
+    count_todo = Bug.objects.filter(status='TODO').count()
+    count_doing = Bug.objects.filter(status="DOING").count()
+    count_done = Bug.objects.filter(status="DONE").count()
+    data = {
+        'lables': lables,
+        'count': [count_todo, count_doing, count_done],
     }
-
-    return JsonResponse(chart)
+    return JsonResponse(data)
 
 
 def get_feature_status_json(request):
-    dataset = Feature.objects.values('status').exclude(
-        status='').annotate(total=Count('status')).order_by('status')
-    chart = {
-        'chart': {'type': 'pie'},
-        'title': {'text': 'Feature Status'},
-        'series': [{
-            'name': 'Feature Status',
-            'data': list(map(lambda row: {'name': [row['status']], 'y': row['total']}, dataset))
-        }]
+    lables = ["Todo", "Doing", "Done"]
+    count_todo = Feature.objects.filter(status='TODO').count()
+    count_doing = Feature.objects.filter(status="DOING").count()
+    count_done = Feature.objects.filter(status="DONE").count()
+    data = {
+        'lables': lables,
+        'count': [count_todo, count_doing, count_done],
+
     }
 
-    return JsonResponse(chart)
+    return JsonResponse(data)
 
 
 def get_bug_upvotes_json(request):
-    lables = ["Todo", "Doing", "Done"]
-    count = [3, 4, 1]
+    dataset = Bug.objects.values('upvotes', 'title').exclude(upvotes=0).order_by('upvotes')
+    print(dataset)
     data = {
-        'lables': lables,
-        'count': count,
-
+        'dataset': 'dataset',
+        
     }
 
     return JsonResponse(data)
