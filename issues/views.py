@@ -54,14 +54,14 @@ def create_or_edit_bug(request, pk=None):
     """
     bug = get_object_or_404(Bug, pk=pk) if pk else None
     if request.method == "POST":
-        bug_form = BugForm(request.POST or None, instance=bug)
-        if bug_form.is_valid():
-            bug_form.instance.author = request.user
-            bug = bug_form.save()
+        form = BugForm(request.POST or None, instance=bug)
+        if form.is_valid():
+            form.instance.author = request.user
+            bug = form.save()
             return redirect(bug_detail, bug.pk)
     else:
-        bug_form = BugForm(instance=bug)
-    return render(request, "bugform.html", {'form': bug_form})
+        form = BugForm(instance=bug)
+    return render(request, "bugform.html", {'form': form})
 
 
 @login_required()
@@ -158,15 +158,15 @@ def create_or_edit_feature(request, pk=None):
     """
     feature = get_object_or_404(Feature, pk=pk) if pk else None
     if request.method == "POST":
-        feature_form = FeatureForm(request.POST or None, instance=feature)
-        if feature_form.is_valid():
-            feature_form.instance.author = request.user
-            feature_form.instance.price = 10
-            feature = feature_form.save()
+        form = FeatureForm(request.POST or None, instance=feature)
+        if form.is_valid():
+            form.instance.author = request.user
+            form.instance.price = 10
+            feature = form.save()
             return redirect(feature_detail, feature.pk)
     else:
-        feature_form = FeatureForm(instance=feature)
-    return render(request, "featureform.html", {'form': feature_form})
+        form = FeatureForm(instance=feature)
+    return render(request, "featureform.html", {'form': form})
 
 
 @login_required()
