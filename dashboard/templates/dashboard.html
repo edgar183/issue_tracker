@@ -9,26 +9,31 @@
   <div id="completed_monthly_container" class="col s12 m4"></div>
 </div>
 <div class="row">
-  <div id="bug_upvotes_container" class="col s12 m6" data-url="{% url 'get_bug_upvotes_json' %}">
+  <div id="bug_upvotes_container" class="col-12 col-md-6" data-url="{% url 'get_bug_upvotes_json' %}">
+
+  </div>
+  <div id="feature_upvotes_container" class="col-12 col-md-6" data-url="{% url 'get_feature_upvotes_json' %}">
+
+  </div>
+</div>
+<div class="row">
+  <div id="bug_status_container" class="col-12 col-md-6" data-url="{% url 'get_bug_status_json' %}">
     <canvas id="bugPieChart"></canvas>
   </div>
-  <div id="feature_upvotes_container" class="col s12 m6" data-url="{% url 'get_feature_upvotes_json' %}">
+  <div id="feature_status_container" class="col-12 col-md-6" data-url="{% url 'get_feature_status_json' %}">
     <canvas id="featurePieChart"></canvas>
   </div>
 </div>
 
-<div id="bug_status_container" data-url="{% url 'get_bug_status_json' %}"></div>
-<div id="feature_status_container" data-url="{% url 'get_feature_status_json' %}"></div>
-
 <script>
+  Chart.defaults.global.hover.mode = 'nearest';
   $.ajax({
     method: "GET",
-    url: $("#bug_upvotes_container").attr("data-url"),
+    url: $("#bug_status_container").attr("data-url"),
     dataType: 'json',
     success: function (data) {
       lables = data.lables
       status_count = data.count
-      console.log(data)
       var ctx = document.getElementById('bugPieChart').getContext('2d');
       var myChart = new Chart(ctx, {
         type: 'pie',
@@ -42,6 +47,11 @@
               'rgb(150, 132, 16, 0.5)',
               'rgb(11, 91, 14, 0.5)'
             ],
+            hoverBackgroundColor: [
+              'rgb(239, 9, 9)',
+              'rgb(150, 132, 16)',
+              'rgb(11, 91, 14)'
+            ],
             borderWidth: 2
           }]
         },
@@ -50,7 +60,7 @@
             display: true,
             text: 'Bug Status',
             position: 'bottom',
-            fontSize: 16
+            fontSize: 18
           }
         }
       });
@@ -64,12 +74,11 @@
 
   $.ajax({
     method: "GET",
-    url: $("#feature_upvotes_container").attr("data-url"),
+    url: $("#feature_status_container").attr("data-url"),
     dataType: 'json',
     success: function (data) {
       lables = data.lables
       status_count = data.count
-      console.log(data)
       var ctx = document.getElementById('featurePieChart').getContext('2d');
       var myChart = new Chart(ctx, {
         type: 'pie',
@@ -83,6 +92,11 @@
               'rgb(150, 132, 16, 0.5)',
               'rgb(11, 91, 14, 0.5)'
             ],
+            hoverBackgroundColor: [
+              'rgb(239, 9, 9)',
+              'rgb(150, 132, 16)',
+              'rgb(11, 91, 14)'
+            ],
             borderWidth: 2
           }]
         },
@@ -91,7 +105,7 @@
             display: true,
             text: 'Feature Status',
             position: 'bottom',
-            fontSize: 16
+            fontSize: 18
           }
         }
       });
@@ -102,7 +116,19 @@
     }
 
   });
-  
+  $.ajax({
+    method: "GET",
+    url: $("#bug_upvotes_container").attr("data-url"),
+    dataType: 'json',
+    success: function (data) {
+      console.log(data)
+    },
+    error: function (error_data) {
+      console.log("error")
+      console.log(error_data)
+    }
+
+  });
   //   $.ajax({
   //     url: $("#bug_status_container").attr("data-url"),
   //     dataType: 'json',
