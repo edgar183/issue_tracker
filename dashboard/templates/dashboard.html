@@ -10,10 +10,10 @@
 </div>
 <div class="row">
   <div id="bug_upvotes_container" class="col-12 col-md-6" data-url="{% url 'get_bug_upvotes_json' %}">
-
+    <canvas id="bugUpvoteChart"></canvas>
   </div>
   <div id="feature_upvotes_container" class="col-12 col-md-6" data-url="{% url 'get_feature_upvotes_json' %}">
-
+    <canvas id="featureUpvoteChart"></canvas>
   </div>
 </div>
 <div class="row">
@@ -32,6 +32,7 @@
 
 <script>
   Chart.defaults.global.hover.mode = 'nearest';
+  // Bug Status pie chart
   $.ajax({
     method: "GET",
     url: $("#bug_status_container").attr("data-url"),
@@ -45,7 +46,6 @@
         data: {
           labels: lables,
           datasets: [{
-            label: '# of Votes',
             data: status_count,
             backgroundColor: [
               'rgb(239, 9, 9, 0.5)',
@@ -76,7 +76,7 @@
     }
 
   });
-
+  // Feature Status pie chart
   $.ajax({
     method: "GET",
     url: $("#feature_status_container").attr("data-url"),
@@ -90,7 +90,6 @@
         data: {
           labels: lables,
           datasets: [{
-            label: '# of Votes',
             data: status_count,
             backgroundColor: [
               'rgb(239, 9, 9, 0.5)',
@@ -121,12 +120,33 @@
     }
 
   });
+  // Bug upvote pie chart
   $.ajax({
     method: "GET",
     url: $("#bug_upvotes_container").attr("data-url"),
     dataType: 'json',
     success: function (data) {
-      console.log(data)
+      var ctx = document.getElementById('bugUpvoteChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: data.lables,
+          datasets: [{
+            data: data.dataset,
+            backgroundColor: [randomColorGenerator()],
+            hoverBackgroundColor: [randomColorGenerator()],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Bug Upvotes',
+            position: 'bottom',
+            fontSize: 18
+          }
+        }
+      });
     },
     error: function (error_data) {
       console.log("error")
@@ -134,6 +154,57 @@
     }
 
   });
+  // Feature upvote pie chart
+  $.ajax({
+    method: "GET",
+    url: $("#feature_upvotes_container").attr("data-url"),
+    dataType: 'json',
+    success: function (data) {
+      dataset = data.dataset
+      var lable = [];
+      var data = []
+      for ( i of dataset){
+        lable.push(i.title)
+        data.push(i.upvotes)
+    }
+      console.log(data)
+      var ctx = document.getElementById('featureUpvoteChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: lables,
+          datasets: [{
+            data: data,
+            backgroundColor: [
+              'rgb(239, 9, 9, 0.5)',
+              'rgb(150, 132, 16, 0.5)',
+              'rgb(11, 91, 14, 0.5)'
+            ],
+            hoverBackgroundColor: [
+              'rgb(239, 9, 9)',
+              'rgb(150, 132, 16)',
+              'rgb(11, 91, 14)'
+            ],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: 'Feature Upvotes',
+            position: 'bottom',
+            fontSize: 18
+          }
+        }
+      });
+    },
+    error: function (error_data) {
+      console.log("error")
+      console.log(error_data)
+    }
+
+  });
+  // All Issue bar chart
   $.ajax({
     method: "GET",
     url: $("#issue_type_container").attr("data-url"),
@@ -183,6 +254,9 @@
     }
 
   });
+  var randomColorGenerator = function () { 
+    return '#' + (Math.random().toString(16) + '0000000').slice(2, 8); 
+};
 
 </script>
 
