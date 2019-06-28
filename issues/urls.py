@@ -26,8 +26,8 @@ urlpatterns = [
     url(r'^bug/(?P<bug_pk>\d+)/new_commet/$', create_or_edit_bug_comment, name='new_bug_comment'),
     url(r'bug/(?P<bug_pk>\d+)/comment/(?P<pk>\d+)/edit/$', create_or_edit_bug_comment, name='edit_bug_comment'),
     url(r'bug/(?P<pk>\d+)/upvote/$', upvote_bug, name='upvote_bug'),
-    url(r'bug/(?P<pk>\d+)/delete_bug/$', delete_bug, name='delete_bug'),
-    url(r'^(?P<pk>\d+)/delete_comment/$', delete_bug_comment, name='delete_comment'),
+    url(r'bug/(?P<pk>\d+)/delete/$', delete_bug, name='delete_bug'),   
+    url(r'^bug/(?P<bug_pk>\d+)/delete_comment/(?P<pk>\d+)/$', delete_bug_comment, name='delete_bug_comment'),
 
     # feature urls
     url(r'^features/', all_features, name='features'),
