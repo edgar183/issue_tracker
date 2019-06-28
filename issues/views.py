@@ -103,14 +103,15 @@ def delete_bug(request, pk=None):
     else:
          messages.success(request, 'You do not have premission to delete this bug.')
 
-def delete_bug_comment(request, pk=None):
+def delete_bug_comment(request, bug_pk, pk=None):
+    bug = get_object_or_404(Bug, pk=bug_pk)
     comment_id = int(pk)
     obj = get_object_or_404(CommentBug, pk=comment_id)
-    if request.user == obj.user or request.user.is_staff:   
+    if request.user == obj.author or request.user.is_staff:   
         if request.method == 'POST':
             obj.delete()
             messages.success(request, 'The comment has been deleted.')
-            return redirect('bug_detail')
+            return redirect('bug_detail', bug_pk)
     else:
          messages.success(request, 'You do not have premission to delete this comment.')
 
