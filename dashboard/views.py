@@ -67,11 +67,17 @@ def get_bug_upvotes_json(request):
 
 
 def get_feature_upvotes_json(request):
-
+    feature_titles = []
+    feature_upvotes = []
     dataset = list(Feature.objects.values('upvotes', 'title').exclude(
         upvotes=0).order_by('upvotes'))
+    print(dataset)
+    for i in dataset:
+        feature_titles.append(i['title'])
+        feature_upvotes.append(i['upvotes'])
     data = {
-        'dataset': dataset,
+        'lables': feature_titles,
+        'dataset': feature_upvotes
     }
-
+    print(data)
     return JsonResponse(data)
