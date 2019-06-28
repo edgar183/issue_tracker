@@ -126,15 +126,16 @@
     url: $("#bug_upvotes_container").attr("data-url"),
     dataType: 'json',
     success: function (data) {
+      dataset = data.dataset
       var ctx = document.getElementById('bugUpvoteChart').getContext('2d');
       var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
           labels: data.lables,
           datasets: [{
-            data: data.dataset,
-            backgroundColor: [randomColorGenerator()],
-            hoverBackgroundColor: [randomColorGenerator()],
+            data: dataset,
+            backgroundColor: poolColors(dataset.length),
+            hoverBackgroundColor: poolColors(dataset.length),
             borderWidth: 2
           }]
         },
@@ -160,15 +161,16 @@
     url: $("#feature_upvotes_container").attr("data-url"),
     dataType: 'json',
     success: function (data) {
+      dataset = data.dataset
       var ctx = document.getElementById('featureUpvoteChart').getContext('2d');
       var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
           labels: data.lables,
           datasets: [{
-            data: data.dataset,
-            backgroundColor: [randomColorGenerator()],
-            hoverBackgroundColor: [randomColorGenerator()],
+            data: dataset,
+            backgroundColor: poolColors(dataset.length),
+            hoverBackgroundColor: poolColors(dataset.length),
             borderWidth: 2
           }]
         },
@@ -238,9 +240,19 @@
     }
 
   });
-  var randomColorGenerator = function () {
-    return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+  var dynamicColors = function () {
+    var r = Math.floor(Math.random() * 255);
+    var g = Math.floor(Math.random() * 255);
+    var b = Math.floor(Math.random() * 255);
+    return "rgb(" + r + "," + g + "," + b + ")";
   };
+  function poolColors(a) {
+    var pool = [];
+    for(i = 0; i < a; i++) {
+        pool.push(dynamicColors());
+    }
+    return pool;
+}
 
 </script>
 
