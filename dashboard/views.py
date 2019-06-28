@@ -3,25 +3,13 @@ from datetime import datetime, timedelta, time
 from django.db.models import Count
 from issues.models import Bug, Feature
 from django.http import JsonResponse
+import json
 
 # Create your views here.
 
 
 def chart(request):
-    #     today = datetime.now().date()
-    #     tomorrow = today + timedelta(1)
-    #     today_start = datetime.combine(today, time())
-    #     today_end = datetime.combine(tomorrow, time())
-    #     completed_daily = Issue.objects.filter(resolved_date__gte=today_start).filter(resolved_date__lt=today_end).count()
 
-    #     this_week_start = datetime.combine(today - timedelta(7), time())
-    #     completed_weekly = Issue.objects.filter(resolved_date__gte=this_week_start).filter(resolved_date__lt=today_end).count()
-
-    #     this_month_start = datetime.combine(today - timedelta(28), time())
-    #     completed_monthly = Issue.objects.filter(resolved_date__gte=this_month_start).filter(resolved_date__lt=today_end).count()
-    #     print(completed_daily)
-
-    #  return render(request, "dashboard.html", {'completed_daily': str(completed_daily), 'completed_weekly': str(completed_weekly), 'completed_monthly': str(completed_monthly)})
     return render(request, "dashboard.html")
 
 
@@ -63,24 +51,27 @@ def get_feature_status_json(request):
 
 
 def get_bug_upvotes_json(request):
-    dataset = Bug.objects.values('upvotes', 'title').exclude(
-        upvotes=0).order_by('upvotes')
-    print(dataset)
+    bug_titles = []
+    bug_upvotes = []
+    dataset = list(Bug.objects.values('upvotes', 'title').exclude(
+        upvotes=0).order_by('upvotes'))
+    for item in dataset:
+        bug_titles.append(item['title'])
+        bug_upvotes.append(item['upvotes'])
+    
     data = {
-        'dataset': 'dataset',
-
+        'lables': bug_titles,
+        'dataset': bug_upvotes
     }
-
     return JsonResponse(data)
 
 
 def get_feature_upvotes_json(request):
-    lables = ["Todo", "Doing", "Done"]
-    count = [10, 4, 1]
-    data = {
-        'lables': lables,
-        'count': count,
 
+    dataset = list(Feature.objects.values('upvotes', 'title').exclude(
+        upvotes=0).order_by('upvotes'))
+    data = {
+        'dataset': dataset,
     }
 
     return JsonResponse(data)
