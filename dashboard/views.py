@@ -71,7 +71,6 @@ def get_feature_upvotes_json(request):
     feature_upvotes = []
     dataset = list(Feature.objects.values('upvotes', 'title').exclude(
         upvotes=0).order_by('upvotes'))
-    print(dataset)
     for i in dataset:
         feature_titles.append(i['title'])
         feature_upvotes.append(i['upvotes'])
@@ -79,5 +78,4 @@ def get_feature_upvotes_json(request):
         'lables': feature_titles,
         'dataset': feature_upvotes
     }
-    print(data)
     return JsonResponse(data)
