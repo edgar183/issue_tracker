@@ -160,31 +160,15 @@
     url: $("#feature_upvotes_container").attr("data-url"),
     dataType: 'json',
     success: function (data) {
-      dataset = data.dataset
-      var lable = [];
-      var data = []
-      for ( i of dataset){
-        lable.push(i.title)
-        data.push(i.upvotes)
-    }
-      console.log(data)
       var ctx = document.getElementById('featureUpvoteChart').getContext('2d');
       var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
-          labels: lables,
+          labels: data.lables,
           datasets: [{
-            data: data,
-            backgroundColor: [
-              'rgb(239, 9, 9, 0.5)',
-              'rgb(150, 132, 16, 0.5)',
-              'rgb(11, 91, 14, 0.5)'
-            ],
-            hoverBackgroundColor: [
-              'rgb(239, 9, 9)',
-              'rgb(150, 132, 16)',
-              'rgb(11, 91, 14)'
-            ],
+            data: data.dataset,
+            backgroundColor: [randomColorGenerator()],
+            hoverBackgroundColor: [randomColorGenerator()],
             borderWidth: 2
           }]
         },
@@ -254,9 +238,9 @@
     }
 
   });
-  var randomColorGenerator = function () { 
-    return '#' + (Math.random().toString(16) + '0000000').slice(2, 8); 
-};
+  var randomColorGenerator = function () {
+    return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+  };
 
 </script>
 
