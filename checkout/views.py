@@ -1,12 +1,17 @@
+'''
+    checkout paiment logic
+    with features upvote icrease if customer paid.
+    Features upvote can only be purchesed
+'''
+import stripe
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import MakePaymentForm, OrderForm
-from .models import OrderLineItem
 from django.conf import settings
 from django.utils import timezone
 from issues.models import Feature
-import stripe
+from .forms import MakePaymentForm, OrderForm
+from .models import OrderLineItem
 
 
 # Create your views here.
@@ -16,6 +21,7 @@ stripe.api_key = settings.STRIPE_SECRET
 
 @login_required()
 def checkout(request):
+    ''' Process paiment form on post request '''
     if request.method == "POST":
         order_form = OrderForm(request.POST)
         payment_form = MakePaymentForm(request.POST)
@@ -50,7 +56,7 @@ def checkout(request):
             if customer.paid:
                 messages.error(request, "You have successfully paid")
                 '''
-                    If customer has paid 
+                    If customer has paid
                     increase each Feature Upvotes by quantity of items paid
                 '''
                 for id, quantity in cart.items():
@@ -69,4 +75,9 @@ def checkout(request):
         payment_form = MakePaymentForm()
         order_form = OrderForm()
 
-    return render(request, "checkout.html", {'order_form': order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE})
+    return render(request, "checkout.html",
+                  {
+                      'order_form': order_form,
+                      'payment_form': payment_form,
+                      'publishable': settings.STRIPE_PUBLISHABLE
+                  })
