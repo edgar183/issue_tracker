@@ -1,63 +1,13 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
 <form method="post" action="{% url 'register' %}" class="accountform">
     <fieldset class="form-group">
-        <legend>Create a new account</legend>
-        <p>Already got an account? <a href="{% url 'login' %}">Sign In</a></p>
+        <legend class="font-weight-bold">Create a new account</legend>
+        <p class="blockquote-footer">Already got an account? <a href="{% url 'login' %}"
+                class="text-decoration-none">Sign In</a></p>
         {% csrf_token %} {{ user_form | crispy }}
-        <button type="submit" class="btn btn-primary">Create account</button>
+        <button type="submit" class="btn btn-outline-info my-2 my-sm-0">Create account</button>
     </fieldset>
 </form>
-
-<div class="card bg-light">
-    <article class="card-body mx-auto">
-        <h4 class="card-title mt-3 text-center">Create Account</h4>
-        <p class="text-center">Get started with your free account</p>
-        <form method="post" action="{% url 'register' %}" class="accountform">
-            {% csrf_token %}
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                </div>
-                <input name="first_name" class="form-control" placeholder="First name" type="text">
-            </div>
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                </div>
-                <input name="username" class="form-control" placeholder="User name" type="text">
-            </div>
-            <!-- form-group// -->
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-                </div>
-                <input name="email" class="form-control" placeholder="Email address" type="email">
-            </div>
-            <!-- form-group// -->
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                </div>
-                <input class="form-control" placeholder="Create password" type="password">
-            </div>
-            <!-- form-group// -->
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                </div>
-                <input class="form-control" placeholder="Repeat password" type="password">
-            </div>
-            <!-- form-group// -->
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
-            </div>
-            <!-- form-group// -->
-            <p class="text-center">Have an account? <a href="{% url 'login' %}">Log In</a> </p>
-        </form>
-    </article>
-</div>
-<!-- card.// -->
-</div>
 {% endblock %}
