@@ -49,6 +49,14 @@ def checkout(request):
 
             if customer.paid:
                 messages.error(request, "You have successfully paid")
+                '''
+                    If customer has paid 
+                    increase each Feature Upvotes by quantity of items paid
+                '''
+                for id, quantity in cart.items():
+                    feature = Feature.objects.get(pk=id)
+                    feature.upvotes += quantity
+                    feature.save()
                 request.session['cart'] = {}
                 return redirect(reverse('features'))
             else:
