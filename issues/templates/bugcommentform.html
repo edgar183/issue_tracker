@@ -1,11 +1,11 @@
-{% extends 'base.html'%} {% load bootstrap_tags %} {% block content %}
+{% extends 'base.html'%} {% load crispy_forms_tags %} {% block content %}
 
 <form method="post" enctype="multipart/form-data">
   <fieldset class="form-group">
-    <legend>Create/edit comment</legend>
+    <legend class="font-weight-bold">Create/edit comment</legend>
     {% csrf_token %}
-    {{ form | as_bootstrap }}
-    <button type="submit" class="btn btn-primary">Create Comment</button>
+    {{ form | crispy }}
+    <button type="submit"class="btn btn-outline-info my-2 my-sm-0">Create Comment</button>
   </fieldset>
 </form>
 

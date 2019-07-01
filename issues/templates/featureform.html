@@ -4,7 +4,7 @@
 <div class="form-group">
   <form method="post" enctype="multipart/form-data">
     <fieldset class="form-group">
-      <legend>Create a new Feature</legend>
+      <legend class="font-weight-bold">Create a new Feature</legend>
       {% csrf_token %}
       {{ form.title |as_crispy_field }}
       {{ form.description |as_crispy_field  }}
@@ -16,7 +16,7 @@
       {{ form.status |as_crispy_field }}
       <hr>
       {% endif %}
-      <button type="submit" class="btn btn-primary">Create Feature</button>
+      <button type="submit" class="btn btn-outline-info my-2 my-sm-0">Create Feature</button>
     </fieldset>
   </form>
 </div>
