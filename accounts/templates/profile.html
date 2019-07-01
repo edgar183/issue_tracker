@@ -1,107 +1,128 @@
 {% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
-<div class="container ">
-  <div class="row">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body bg-light">
-          <div class="card-title mb-4">
-            <div class="d-flex justify-content-start">
-              <div class="image-container">
-                <img src="{{ user.profile.image.url }}" class="img-thumbnail rounded-circle account-img" />
-              </div>
-              <div class="userData ml-3">
-                <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold">
-                  {{ user.first_name }}
-                </h2>
-                <h6 class="d-block">{{ bug_count }} - Bugs</h6>
-                <h6 class="d-block">{{ feature_count }} - Features</h6>
-              </div>
-            </div>
+<div class="card-title mb-4">
+  <div class="d-flex justify-content-start">
+    <div class="image-container">
+      <img src="{{ user.profile.image.url }}" class="img-thumbnail rounded-circle account-img" />
+    </div>
+    <div class="userData ml-3">
+      <h2 class="d-block font-weight-bold">
+        {{ user.first_name }}
+      </h2>
+      <h6 class="d-block"><i class="fa fa-bug" aria-hidden="true"></i> {{ bug_count }} - Bugs</h6>
+      <h6 class="d-block"><i class="fa fa-lightbulb" aria-hidden="true"></i> {{ feature_count }} - Features</h6>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <!--Tab nav links list-->
+    <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="profileInfo-tab" data-toggle="tab" href="#profileInfo" role="tab"
+          aria-controls="profileInfo" aria-selected="true"><i class="fa fa-info-circle" aria-hidden="true"></i> Profile
+          Info</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="updateProfile-tab" data-toggle="tab" href="#updateProfile" role="tab"
+          aria-controls="updateProfile" aria-selected="false"><i class="fa fa-wrench" aria-hidden="true"></i>
+          Update Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="bugs-tab" data-toggle="tab" href="#bugs" role="tab" aria-controls="bugs"
+          aria-selected="false"><i class="fa fa-bug" aria-hidden="true"></i> Bugs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="features-tab" data-toggle="tab" href="#features" role="tab" aria-controls="features"
+          aria-selected="false"><i class="fa fa-lightbulb" aria-hidden="true"></i> Features</a>
+      </li>
+    </ul>
+    <!-- My Tabs -->
+    <div class="tab-content ml-1" id="myTabContent">
+      <!--Profile Info Tab -->
+      <div class="tab-pane fade show active" id="profileInfo" role="tabpanel" aria-labelledby="profileInfo-tab">
+        <div class="row">
+          <div class="col-sm-3 col-md-2 col-5">
+            <label class="font-weight-bold"><i class="fa fa-user aria-hidden=" true""></i> Full Name</label>
           </div>
-          <div class="row">
-            <div class="col-sm-12">
-              <label style="font-weight:bold;">Profile Info</label>
-              <hr>
-              <form method="POST" action="{% url 'profile' %}" enctype="multipart/form-data" class="accountform">
-                <fieldset class="form-group">
-                  {% csrf_token %} {{ u_form|crispy }}
-                  {{ p_form|crispy }}
-                  <button type="submit" class="btn btn-primary">Update account</button>
-                </fieldset>
-              </form>
-            </div>
+          <div class="col-md-8 col-6">
+            {{ user.first_name }} {{ user.last_name }}
           </div>
-          <hr />
-          <div class="row">
-            <div class="col-sm-3 col-md-2 col-5">
-              <label style="font-weight:bold;">Full Name</label>
-            </div>
-            <div class="col-md-8 col-6">
-              {{ user.first_name }} {{ user.last_name }}
-            </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-3 col-md-2 col-5">
+            <label class="font-weight-bold"><i class="fa fa-envelope" aria-hidden="true"></i> Email Address</label>
           </div>
-          <hr />
-          <div class="row">
-            <div class="col-sm-3 col-md-2 col-5">
-              <label style="font-weight:bold;">Email Address</label>
-            </div>
-            <div class="col-md-8 col-6">
-              {{ user.email }}
-            </div>
+          <div class="col-md-8 col-6">
+            {{ user.email }}
           </div>
-          <hr />
-          <div class="row">
-            <div class="col-sm-3 col-md-2 col-5">
-              <label style="font-weight:bold;">Is Staff</label>
-            </div>
-            <div class="col-md-8 col-6">
-              {{ user.is_staff }}
-            </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-3 col-md-2 col-5">
+            <label class="font-weight-bold"><i class="fa fa-user" aria-hidden="true"></i> Is Staff</label>
           </div>
-          <hr />
-          <div class="row">
-            <div class="col-sm-3 col-md-2 col-5">
-              <label style="font-weight:bold;">Date Joined</label>
-            </div>
-            <div class="col-md-8 col-6">
-              {{ user.date_joined }}
-            </div>
+          {% if request.user.is_staff %}
+          <div class="col-md-8 col-6"><i class="fa fa-check fa-2x" aria-hidden="true"></i>
           </div>
-          <hr />
-          <div class="row">
-            <div class="col-sm-3 col-md-2 col-5">
-              <label style="font-weight:bold;">Last Login</label>
-            </div>
-            <div class="col-md-8 col-6">
-              {{ user.last_login }}
-            </div>
+          {% else %}
+          <div class="col-md-8 col-6"><i class="fa fa-times fa-2x" aria-hidden="true"></i>
           </div>
-          <hr />
-          <div class="row">
-            <div class="col-sm-3 col-md-2 col-5">
-              <label style="font-weight:bold;">All Bugs</label>
-            </div>
-            <div class="col-md-8 col-6">
-              {% for bug in all_user_bugs %}
-              <p>
-                <a href="{% url 'bug_detail' bug.id %}">{{ bug.title }}</a>
-              </p>
-              <hr />
-              {% endfor %}
-            </div>
+          {% endif %}
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-3 col-md-2 col-5">
+            <label class="font-weight-bold"><i class="fa fa-mouse-pointer" aria-hidden="true"></i>
+              Date Joined</label>
           </div>
-          <div class="row">
-            <div class="col-sm-3 col-md-2 col-5">
-              <label style="font-weight:bold;">All Features</label>
-            </div>
-            <div class="col-md-8 col-6">
-              {% for feature in all_user_features %}
-              <p>
-                <a href="{% url 'feature_detail' feature.id %}">{{ feature.title }}</a>
-              </p>
-              <hr />
-              {% endfor %}
-            </div>
+          <div class="col-md-8 col-6">
+            {{ user.date_joined }}
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-3 col-md-2 col-5">
+            <label class="font-weight-bold"><i class="fa fa-sign-in-alt aria-hidden=" true""></i> Last Login</label>
+          </div>
+          <div class="col-md-8 col-6">
+            {{ user.last_login }}
+          </div>
+        </div>
+      </div>
+      <!-- Update Profile Info Tab -->
+      <div class="tab-pane fade show" id="updateProfile" role="tabpanel" aria-labelledby="updateProfile-tab">
+        <form method="POST" action="{% url 'profile' %}" enctype="multipart/form-data" class="accountform">
+          <fieldset class="form-group">
+            {% csrf_token %} {{ u_form|crispy }}
+            {{ p_form|crispy }}
+            <button type="submit" class="btn btn-outline-info my-2 my-sm-0">Update account</button>
+          </fieldset>
+        </form>
+      </div>
+      <!-- All Bugs Tab -->
+      <div class="tab-pane fade show" id="bugs" role="tabpanel" aria-labelledby="bugs-tab">
+        <div class="row">
+          <div class="col-md-8 col-6">
+            {% for bug in all_user_bugs %}
+            <p>-
+              <a class="text-decoration-none" href="{% url 'bug_detail' bug.id %}">{{ bug.title }}</a>
+            </p>
+            <hr />
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <!-- All Feature Tab-->
+      <div class="tab-pane fade show" id="features" role="tabpanel" aria-labelledby="features-tab">
+        <div class="row">
+          <div class="col-sm-12">
+            {% for feature in all_user_features %}
+            <p>-
+              <a class="text-decoration-none" href="{% url 'feature_detail' feature.id %}">{{ feature.title }}</a>
+            </p>
+            <hr />
+            {% endfor %}
           </div>
         </div>
       </div>
