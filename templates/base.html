@@ -13,6 +13,9 @@
   <!-- Custom style files -->
   <link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css" />
   <link rel="icon" href="{% static 'image/favison_issue.png' %}" type="image/png" />
+  <!--Font Awesome 5.9-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha256-AaQqnjfGDRZd/lUp0Dvy7URGOyRsh8g9JdWUkyYxNfI=" crossorigin="anonymous" />
   {% block head_js %}
   {% endblock %}
   <title>Issue Tracker</title>
@@ -32,10 +35,11 @@
       <ul class="navbar-nav mr-auto ">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+          <a class="nav-link" href="{% url 'profile' %}"><i class="fa fa-user aria-hidden=" true""></i> Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt aria-hidden=" true""></i>
+            Logout</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -43,16 +47,19 @@
             New
           </a>
           <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item text-info" href="{% url 'new_bug' %}">Bug</a>
-            <a class="dropdown-item text-info" href="{% url 'new_feature' %}">Feature</a>
+            <a class="dropdown-item text-info" href="{% url 'new_bug' %}"><i class="fa fa-bug aria-hidden=" true""></i>
+              Bug</a>
+            <a class="dropdown-item text-info" href="{% url 'new_feature' %}"><i class="fa fa-lightbulb aria-hidden="
+                true""></i> Feature</a>
           </div>
         </li>
         {%  else %}
         <li class="nav-item">
-          <a class="nav-link " href="{% url 'register' %}">Register</a>
+          <a class="nav-link " href="{% url 'register' %}"><i class="fa fa-user-plus aria-hidden=" true""></i>
+            Register</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'login' %}">Login</a>
+          <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in-alt aria-hidden=" true""></i> Login</a>
         </li>
         {% endif %}
         <li class="nav-item dropdown">
@@ -61,15 +68,18 @@
             Issues
           </a>
           <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item text-info" href="{% url 'bugs' %}">Bugs</a>
-            <a class="dropdown-item text-info" href="{% url 'features' %}">Features</a>
+            <a class="dropdown-item text-info" href="{% url 'bugs' %}"><i class="fa fa-bug aria-hidden=" true""></i>
+              Bugs</a>
+            <a class="dropdown-item text-info" href="{% url 'features' %}"><i class="fa fa-lightbulb aria-hidden="
+                true""></i> Features</a>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+          <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-chart-area aria-hidden=" true""></i>
+            Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'view_cart' %}">Cart
+          <a class="nav-link" href="{% url 'view_cart' %}"><i class="fa fa-shopping-cart aria-hidden=" true""></i> Cart
             {% if product_count > 0 %}
             <label class="badge badge-warning">{{ product_count }}</label>
             {% endif %}
@@ -78,7 +88,8 @@
       </ul>
       <form action="{% url 'search' %}" method="get" class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" name=q placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="fa fa-search aria-hidden="
+            true"f"></i> Search</button>
       </form>
     </div>
   </nav>
@@ -91,8 +102,18 @@
     </div>
   </div>
   {% endif %}
-  {% block content %}
-  {% endblock %}
+  <div class="container ">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body bg-light">
+            {% block content %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   {% include 'base/js.html' %}
   <script>
     $(document).ready(function () {
