@@ -1,63 +1,151 @@
-{% extends 'base.html'%} {% block content %}
-
-<h3 class="font-weight-bold"> {{ bug.title }}</h3>
-<p class="font-weight-bold">Description: {{ bug.description }}</p>
-<p class="font-weight-bold">Date Created: {{ bug.created_date }}</p>
-<p class="font-weight-bold">Date Updated: {{ bug.updated_date }}</p>
-<p class="font-weight-bold">Is Resolved:
+{% extends 'base.html'%} {% load crispy_forms_tags %} {% block content %}
+<!-- Bug Detailes -->
+<div class="row">
+  <div class="col-sm-12">
+    {% if bug.status == 'TODO'%}
+    <h3 class="font-weight-bold text-center mb-2 bg-danger"> {{ bug.title }}</h3>
+    {% elif bug.status == 'DOING' %}
+    <h3 class="font-weight-bold text-center mb-2 bg-warning"> {{ bug.title }}</h3>
+    {% else %}
+    <h3 class="font-weight-bold text-center mb-2 bg-success"> {{ bug.title }}</h3>
+    {% endif %}
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-2 col-5">
+    <label style="font-weight:bold;">Description</label>
+  </div>
+  <div class="col-md-8 col-6">
+    {{ bug.description }}
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-2 col-5">
+    <label style="font-weight:bold;">Date Created</label>
+  </div>
+  <div class="col-md-8 col-6">
+    {{ bug.created_date }}
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-2 col-5">
+    <label style="font-weight:bold;">Date Updated</label>
+  </div>
+  <div class="col-md-8 col-6">
+    {{ bug.updated_date }}
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-2 col-5">
+    <label style="font-weight:bold;">Is Resolved</label>
+  </div>
   {%if bug.is_resolved == False %}
-  <i class="fa fa-times fa-2x" aria-hidden="true"></i>
-  {% else %}
-  <i class="fa fa-check fa-2x" aria-hidden="true"></i>
-  {% endif %}
-</p>
-<p class="font-weight-bold">Upvotes: {{ bug.upvotes }}
-  <a class="btn-floating btn-small waves-effect waves-light teal" href="{% url 'upvote_bug' bug.id %}"><i
-      class="fa fa-thumbs-up" aria-hidden="true"></i></a>
-</p>
-<p class="font-weight-bold">Tag: <i class="fa fa-hashtag" aria-hidden="true"></i> {{ bug.tag }}</p>
-<p class="font-weight-bold">Author: <i class="fa fa-user" aria-hidden="true"></i> {{ bug.author }}</p>
-<p class="font-weight-bold">Status: {{ bug.status }}</p>
+  <div class="col-md-8 col-6">
+    <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+    {% else %}
+    <i class="fa fa-check fa-2x" aria-hidden="true"></i>
+    {% endif %}
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-2 col-5">
+    <label style="font-weight:bold;">Tag</label>
+  </div>
+  <div class="col-md-8 col-6">
+    <i class="fa fa-hashtag" aria-hidden="true"></i> {{ bug.tag }}
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-2 col-5">
+    <label style="font-weight:bold;">Author</label>
+  </div>
+  <div class="col-md-8 col-6">
+    <i class="fa fa-user" aria-hidden="true"></i> {{ bug.author }}
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-2 col-5">
+    <label style="font-weight:bold;">Status</label>
+  </div>
+  <div class="col-md-8 col-6">
+    {% if bug.status == 'TODO'%}
+    <p class="text-danger"><strong>{{ bug.status }}</strong></p>
+    {% elif bug.status == 'DOING' %}
+    <p class="text-warning"><strong>{{ bug.status }}</strong></p>
+    {% else %}
+    <p class="text-success"><strong>{{ bug.status }}</strong></p>
+    {% endif %}
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-2 col-5">
+    <label style="font-weight:bold;">Upvotes</label>
+  </div>
+  <div class="col-md-8 col-6">
+    <a class="btn-floating btn-small waves-effect waves-light teal" href="{% url 'upvote_bug' bug.id %}"><i
+        class="fa fa-thumbs-up" aria-hidden="true"></i></a> {{ bug.upvotes }}
+  </div>
+</div>
 {% if bug.author == request.user or user.is_staff%}
 <div class="row">
   <div class="col-md-6">
-    <a class="btn btn-secondary" href="{% url 'edit_bug' bug.id %}" role="button"><i class="fa fa-pencil" aria-hidden="true"></i>
-       Edit Bug</a>
+    <a class="btn btn-secondary" href="{% url 'edit_bug' bug.id %}" role="button"><i class="fa fa-pencil"
+        aria-hidden="true"></i>
+      Edit Bug</a>
   </div>
   <div class="col-md-6">
     <form method="post" action="{% url 'delete_bug' bug.id %}" class="accountform">
       {% csrf_token %}
       <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
 
-         Delete</button>
+        Delete</button>
       </fieldset>
     </form>
   </div>
 </div>
 {% endif %}
 <hr />
-<h3>Comments </h3>
-<a class="btn-floating btn waves-effect waves-light green" href="{% url 'new_bug_comment' bug.id %}">Add New Comment</a>
-{% for comment in comments %}
-<div class="card-panel blue-grey lighten-4">
-  <div class="row">
-    <div class="col-sm-12 col-m-8">
-      <p><b>User: </b>{{ comment.author }} <b>Created: </b>{{ comment.created_date }} <b>Updated:
-        </b>{{ comment.updated_date }}</p>
-      <p>
-        <h6><b>Comment: </b>{{ comment.comment }}
-      </p>
-      </h6>
-      <div class="col s12 m4">
-        {% if user == comment.author or user.is_staff %}
-        <a class="btn-floating btn waves-effect waves-light blue"
-          href="{% url 'edit_bug_comment' bug.id comment.id %}">Edit Comment</a>
-        <form method="post" action="{% url 'delete_bug_comment' bug.id comment.id %}" class="accountform">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-danger">Delete</button>
-          </fieldset>
-        </form>
-        {% endif %}
-        {% endfor %}
+
+<!-- Comments -->
+<div class="row bg-light">
+  <div class="col-sm-12">
+    <div class="comment-wrapper">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3>Recant Comment</h3>
+          <a class="" href="{% url 'new_bug_comment' bug.id %}">Add New Comment</a>
+        </div>
+        <div class="panel-body">
+          <ul class="media-list p-2 bg-white">
+            {% for comment in comments %}
+            <li class="media">
+              <img src="{{ user.profile.image.url }}" alt="profile image" class="rounded-circle">
+              </a>
+              <div class="media-body">
+                <span class="text-muted pull-right">
+                  <small class="text-muted">Updated: {{ comment.updated_date }}</small>
+                </span>
+                <strong class="text-success">@{{ comment.author }}</strong>
+                <p>
+                  {{ comment.comment }}
+                   
+                </p>
+              </div>
+              {% if user == comment.author or user.is_staff %}
+              <a type="button" class="btn-floating btn waves-effect waves-light blue"
+                href="{% url 'edit_bug_comment' bug.id comment.id %}">Edit Comment</a>
+              <form method="post" action="{% url 'delete_bug_comment' bug.id comment.id %}" class="accountform">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+                </fieldset>
+              </form>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
-      {% endblock %}
+    </div>
+  </div>
+</div>
+{% endblock %}
