@@ -13,9 +13,9 @@
   <!-- Custom style files -->
   <link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css" />
   <link rel="icon" href="{% static 'image/favison_issue.png' %}" type="image/png" />
-  <!--Font Awesome 5.9-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    integrity="sha256-AaQqnjfGDRZd/lUp0Dvy7URGOyRsh8g9JdWUkyYxNfI=" crossorigin="anonymous" />
+  <!--Font Awesome-->
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   {% block head_js %}
   {% endblock %}
   <title>Issue Tracker</title>
@@ -38,8 +38,7 @@
           <a class="nav-link" href="{% url 'profile' %}"><i class="fa fa-user aria-hidden=" true""></i> Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt aria-hidden=" true""></i>
-            Logout</a>
+          <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -59,7 +58,7 @@
             Register</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in-alt aria-hidden=" true""></i> Login</a>
+          <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
         </li>
         {% endif %}
         <li class="nav-item dropdown">
@@ -106,7 +105,7 @@
     <div class="row">
       <div class="col-12">
         <div class="card">
-          <div class="card-body bg-light">
+          <div class="card-body bg-light ">
             {% block content %}
             {% endblock %}
           </div>
