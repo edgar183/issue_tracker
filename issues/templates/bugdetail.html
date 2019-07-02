@@ -39,8 +39,8 @@
   <div class="col-sm-3 col-md-2 col-5">
     <label style="font-weight:bold;">Is Resolved</label>
   </div>
-  {%if bug.is_resolved == False %}
   <div class="col-md-8 col-6">
+    {%if bug.is_resolved == False %}
     <i class="fa fa-times fa-2x" aria-hidden="true"></i>
     {% else %}
     <i class="fa fa-check fa-2x" aria-hidden="true"></i>
@@ -128,7 +128,7 @@
                 <strong class="text-success">@{{ comment.author }}</strong>
                 <p>
                   {{ comment.comment }}
-                   
+
                 </p>
               </div>
               {% if user == comment.author or user.is_staff %}
