@@ -1,32 +1,48 @@
-{% extends 'base.html'%} {% block content %} {% if bug.author == request.user or user.is_staff%}
-<a class="btn btn-secondary" href="{% url 'edit_bug' bug.id %}" role="button">Edit Bug</a>
-<form method="post" action="{% url 'delete_bug' bug.id %}" class="accountform">
-  {% csrf_token %}
-  <button type="submit" class="btn btn-danger">Delete</button>
-  </fieldset>
-</form>
-{% else %}
-<p class="text-danger">This is not your bug</p>
-{% endif %}
-<p>{{ bug.id }}Title:{{ bug.title }}</p>
-<p>Description:{{ bug.description }}</p>
-<p>Date Created:{{ bug.created_date }}</p>
-<p>Date Updated:{{ bug.updated_date }}</p>
-<p>Is Resolved:{{ bug.is_resolved }}</p>
-<p>Upvotes:{{ bug.upvotes }}
-  <a class="btn-floating btn-small waves-effect waves-light teal" href="{% url 'upvote_bug' bug.id %}">Up vote</a>
+{% extends 'base.html'%} {% block content %}
+
+<h3 class="font-weight-bold"> {{ bug.title }}</h3>
+<p class="font-weight-bold">Description: {{ bug.description }}</p>
+<p class="font-weight-bold">Date Created: {{ bug.created_date }}</p>
+<p class="font-weight-bold">Date Updated: {{ bug.updated_date }}</p>
+<p class="font-weight-bold">Is Resolved:
+  {%if bug.is_resolved == False %}
+  <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+  {% else %}
+  <i class="fa fa-check fa-2x" aria-hidden="true"></i>
+  {% endif %}
 </p>
-<p>Tag:{{ bug.tag }}</p>
-<p>Author:{{ bug.author }}</p>
-<p>Status:{{ bug.status }}</p>
+<p class="font-weight-bold">Upvotes: {{ bug.upvotes }}
+  <a class="btn-floating btn-small waves-effect waves-light teal" href="{% url 'upvote_bug' bug.id %}"><i
+      class="fa fa-thumbs-up" aria-hidden="true"></i></a>
+</p>
+<p class="font-weight-bold">Tag: <i class="fa fa-hashtag" aria-hidden="true"></i> {{ bug.tag }}</p>
+<p class="font-weight-bold">Author: <i class="fa fa-user" aria-hidden="true"></i> {{ bug.author }}</p>
+<p class="font-weight-bold">Status: {{ bug.status }}</p>
+{% if bug.author == request.user or user.is_staff%}
+<div class="row">
+  <div class="col-md-6">
+    <a class="btn btn-secondary" href="{% url 'edit_bug' bug.id %}" role="button"><i class="fa fa-pencil" aria-hidden="true"></i>
+       Edit Bug</a>
+  </div>
+  <div class="col-md-6">
+    <form method="post" action="{% url 'delete_bug' bug.id %}" class="accountform">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
+
+         Delete</button>
+      </fieldset>
+    </form>
+  </div>
+</div>
+{% endif %}
 <hr />
 <h3>Comments </h3>
 <a class="btn-floating btn waves-effect waves-light green" href="{% url 'new_bug_comment' bug.id %}">Add New Comment</a>
 {% for comment in comments %}
 <div class="card-panel blue-grey lighten-4">
   <div class="row">
-    <div class="col s12 m8">
-      <p>{{ comment.id }}<b>User: </b>{{ comment.author }} <b>Created: </b>{{ comment.created_date }} <b>Updated:
+    <div class="col-sm-12 col-m-8">
+      <p><b>User: </b>{{ comment.author }} <b>Created: </b>{{ comment.created_date }} <b>Updated:
         </b>{{ comment.updated_date }}</p>
       <p>
         <h6><b>Comment: </b>{{ comment.comment }}
