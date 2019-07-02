@@ -1,4 +1,4 @@
-{% extends 'base.html'%} {% load crispy_forms_tags %} {% block content %}
+{% extends 'base.html'%} {% block content %}
 <!-- Bug Detailes -->
 <div class="row">
   <div class="col-sm-12">
@@ -97,7 +97,6 @@
     <form method="post" action="{% url 'delete_bug' bug.id %}" class="accountform">
       {% csrf_token %}
       <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
-
         Delete</button>
       </fieldset>
     </form>
@@ -112,7 +111,7 @@
     <div class="comment-wrapper">
       <div class="panel panel-info">
         <div class="panel-heading">
-          <h3>Recant Comment</h3>
+          <h3>Recent Comment</h3>
           <a class="" href="{% url 'new_bug_comment' bug.id %}">Add New Comment</a>
         </div>
         <div class="panel-body">
