@@ -203,3 +203,15 @@ def delete_feature(request, pk=None):
         obj.delete()
 
         return redirect('features')
+
+def delete_feature_comment(request, feature_pk, pk=None):
+    feature = get_object_or_404(Feature, pk=feature_pk)
+    comment_id = int(pk)
+    obj = get_object_or_404(CommentFeature, pk=comment_id)
+    if request.user == obj.author or request.user.is_staff:   
+        if request.method == 'POST':
+            obj.delete()
+            messages.success(request, 'The comment has been deleted.')
+            return redirect('feature_detail', feature_pk)
+    else:
+         messages.success(request, 'You do not have premission to delete this comment.')
