@@ -4,17 +4,21 @@
     {% for bug in bugs %}
     <div class="col-sm-12 col-md-4 mb-2">
       <div class="card bg-c-card order-card">
-        <div class="card-block">
+        <div class="card-body">
           {% if bug.status == 'TODO' %}
-          <h3 class="m-b-20 text-center bg-danger ">{{ bug.title }}</h3>
+          <h3 class="card-title text-center bg-danger">{{ bug.title }}</h3>
+          <p class="text-sm-right"><small>{{ bug.status }}</small></p>
           {% elif bug.status == 'DOING' %}
-          <h3 class="m-b-20 text-center bg-warning">{{ bug.title }}</h3>
+          <h3 class="card-title text-center bg-warning">{{ bug.title }}</h3>
+          <p class="text-sm-right"><small>{{ bug.status }}</small></p>
           {% else %}
-          <h3 class="m-b-20 text-center bg-success">{{ bug.title }}</h3>
+          <h3 class="card-title text-center bg-success">{{ bug.title }}</h3>
+          <p class="text-sm-right"><small>{{ bug.status }}</small></p>
           {% endif %}
-          <h6 class="text-left ml-1"><span>{{ bug.description }}</span></h6>
-          <p class="ml-1">Status: <span class="f-right">{{ bug.status }}</span></p>
-          <a href="{% url 'bug_detail' bug.id %}" role="button" class="btn btn-default">More</a>
+          <h6 class="card-text text-left ml-1"><span>{{ bug.description }}</span></h6>
+          <a href="{% url 'bug_detail' bug.id %}" role="button" class="btn btn-dark btn-circle float-right mt-2"><i
+              class="fa fa-arrow-down " aria-hidden="true"></i>
+          </a>
         </div>
       </div>
     </div>
