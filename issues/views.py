@@ -125,7 +125,7 @@ def all_features(request):
 
     # Pagination settings
     page = request.GET.get('page', 1)
-    paginator = Paginator(feature_list, 2)
+    paginator = Paginator(feature_list, 6)
 
     try:
         features = paginator.page(page)
