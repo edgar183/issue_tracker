@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
@@ -16,7 +16,7 @@ def all_bugs(request):
 
     # Pagination settings
     page = request.GET.get('page', 1)
-    paginator = Paginator(bug_list, 2)
+    paginator = Paginator(bug_list, 6)
 
     try:
         bugs = paginator.page(page)
@@ -93,7 +93,7 @@ def upvote_bug(request, pk):
 def delete_bug(request, pk=None):
     bug_id = int(pk)
     obj = get_object_or_404(Bug, pk=bug_id)
-    if obj.author == request.user or request.user.is_staff: 
+    if obj.author == request.user or request.user.is_staff:
         if request.method == 'POST':
             bug_id = int(pk)
             obj = get_object_or_404(Bug, pk=bug_id)
@@ -101,19 +101,19 @@ def delete_bug(request, pk=None):
 
             return redirect('bugs')
     else:
-         messages.success(request, 'You do not have premission to delete this bug.')
+        messages.success(request, 'You do not have premission to delete this bug.')
 
 def delete_bug_comment(request, bug_pk, pk=None):
     bug = get_object_or_404(Bug, pk=bug_pk)
     comment_id = int(pk)
     obj = get_object_or_404(CommentBug, pk=comment_id)
-    if request.user == obj.author or request.user.is_staff:   
+    if request.user == obj.author or request.user.is_staff:
         if request.method == 'POST':
             obj.delete()
             messages.success(request, 'The comment has been deleted.')
             return redirect('bug_detail', bug_pk)
     else:
-         messages.success(request, 'You do not have premission to delete this comment.')
+        messages.success(request, 'You do not have premission to delete this comment.')
 
 def all_features(request):
     """
@@ -208,10 +208,10 @@ def delete_feature_comment(request, feature_pk, pk=None):
     feature = get_object_or_404(Feature, pk=feature_pk)
     comment_id = int(pk)
     obj = get_object_or_404(CommentFeature, pk=comment_id)
-    if request.user == obj.author or request.user.is_staff:   
+    if request.user == obj.author or request.user.is_staff:
         if request.method == 'POST':
             obj.delete()
             messages.success(request, 'The comment has been deleted.')
             return redirect('feature_detail', feature_pk)
     else:
-         messages.success(request, 'You do not have premission to delete this comment.')
+        messages.success(request, 'You do not have premission to delete this comment.')
