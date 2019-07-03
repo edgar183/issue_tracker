@@ -82,21 +82,21 @@
     <label style="font-weight:bold;">Upvotes</label>
   </div>
   <div class="col-md-8 col-6">
-    <a class="btn-floating btn-small waves-effect waves-light teal" href="{% url 'upvote_bug' bug.id %}"><i
-        class="fa fa-thumbs-up" aria-hidden="true"></i></a> {{ bug.upvotes }}
+    <a class="btn-floating btn-small" href="{% url 'upvote_bug' bug.id %}"><i class="fa fa-thumbs-up"
+        aria-hidden="true"></i></a> {{ bug.upvotes }}
   </div>
 </div>
 {% if bug.author == request.user or user.is_staff%}
 <div class="row">
   <div class="col-md-6">
-    <a class="btn btn-secondary" href="{% url 'edit_bug' bug.id %}" role="button"><i class="fa fa-pencil"
+    <a class="btn btn-secondary float-left" href="{% url 'edit_bug' bug.id %}" role="button"><i class="fa fa-pencil"
         aria-hidden="true"></i>
-      Edit Bug</a>
+      Edit</a>
   </div>
   <div class="col-md-6">
     <form method="post" action="{% url 'delete_bug' bug.id %}" class="accountform">
       {% csrf_token %}
-      <button type="submit" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>
+      <button type="submit" class="btn btn-danger float-right"><i class="fa fa-trash" aria-hidden="true"></i>
         Delete</button>
       </fieldset>
     </form>
@@ -109,35 +109,48 @@
 <div class="row bg-light">
   <div class="col-sm-12">
     <div class="comment-wrapper">
-      <div class="panel panel-info">
-        <div class="panel-heading">
+      <div class="card ">
+        <div class="card-header">
           <h3>Recent Comment</h3>
-          <a class="" href="{% url 'new_bug_comment' bug.id %}">Add New Comment</a>
+          <a class="btn btn-info" href="{% url 'new_bug_comment' bug.id %}" role="button"><i class="fa fa-plus"
+              aria-hidden="true"></i>
+            New Comment</a>
         </div>
-        <div class="panel-body">
-          <ul class="media-list p-2 bg-white">
+        <div class="card-body">
+          <ul class="list-group list-group-flush p-2 bg-white">
             {% for comment in comments %}
-            <li class="media">
-              <img src="{{ comment.author.profile.image.url }}" alt="profile image" class="rounded-circle">
-              </a>
-              <div class="media-body">
-                <span class="text-muted pull-right">
-                  <small class="text-muted">Updated: {{ comment.updated_date }}</small>
-                </span>
-                <strong class="text-success">@{{ comment.author }}</strong>
-                <p>
-                  {{ comment.comment }}
+            <li class="list-group-item">
+              <div class="row no-gutters">
+                <div class="col-md-2 media">
+                  <img src="{{ comment.author.profile.image.url }}" alt="profile image" class="rounded-circle">
+                </div>
+                <div class="col-md-10">
+                  <span class="text-muted pull-right">
+                    <small class="text-muted">Updated: {{ comment.updated_date }}</small>
+                  </span>
+                  <strong class="text-success">@{{ comment.author }}</strong>
+                  <p>
+                    {{ comment.comment }}
 
-                </p>
+                  </p>
+                </div>
               </div>
               {% if user == comment.author or user.is_staff %}
-              <a type="button" class="btn-floating btn waves-effect waves-light blue"
-                href="{% url 'edit_bug_comment' bug.id comment.id %}">Edit Comment</a>
-              <form method="post" action="{% url 'delete_bug_comment' bug.id comment.id %}" class="accountform">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Delete</button>
-                </fieldset>
-              </form>
+              <div class="row">
+                <div class="col-md-6 pt-2">
+                  <a role="button" class="btn btn-secondary float-left"
+                    href="{% url 'edit_bug_comment' bug.id comment.id %}"><i class="fa fa-pencil"
+                      aria-hidden="true"></i> Edit</a>
+                </div>
+                <div class="col-md-6">
+                  <form method="post" action="{% url 'delete_bug_comment' bug.id comment.id %}" class="accountform">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger float-right"><i class="fa fa-trash"
+                        aria-hidden="true"></i> Delete</button>
+                    </fieldset>
+                  </form>
+                </div>
+              </div>
               {% endif %}
             </li>
             {% endfor %}
