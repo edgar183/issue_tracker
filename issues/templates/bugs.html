@@ -1,24 +1,33 @@
-{% extends 'base.html'%} {% block content %} {% for bug in bugs %}
-<p>Title:{{ bug.title }}</p>
-<p>Description:{{ bug.description }}</p>
-<p>Status:{{ bug.status }}</p>
-<a href="{% url 'bug_detail' bug.id %}" role="button" class="btn btn-default"
-  >More</a
->
-<hr />
-
-{% endfor %}
+{% extends 'base.html'%} {% block content %}
+<div class="container">
+  <div class="row">
+    {% for bug in bugs %}
+    <div class="col-sm-12 col-md-4 mb-2">
+      <div class="card bg-c-card order-card">
+        <div class="card-block">
+          {% if bug.status == 'TODO' %}
+          <h3 class="m-b-20 text-center bg-danger ">{{ bug.title }}</h3>
+          {% elif bug.status == 'DOING' %}
+          <h3 class="m-b-20 text-center bg-warning">{{ bug.title }}</h3>
+          {% else %}
+          <h3 class="m-b-20 text-center bg-success">{{ bug.title }}</h3>
+          {% endif %}
+          <h6 class="text-left ml-1"><span>{{ bug.description }}</span></h6>
+          <p class="ml-1">Status: <span class="f-right">{{ bug.status }}</span></p>
+          <a href="{% url 'bug_detail' bug.id %}" role="button" class="btn btn-default">More</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 <!-- Pagination -->
 {% if bugs.has_other_pages %}
 <ul class="pagination">
   {% if bugs.has_previous %}
   <li class="page-item">
-    <a
-      href="?page={{ bugs.previous_page_number }}"
-      class="page-link"
-      aria-label="Previous"
-      ><span aria-hidden="true">&laquo;</span></a
-    >
+    <a href="?page={{ bugs.previous_page_number }}" class="page-link" aria-label="Previous"><span
+        aria-hidden="true">&laquo;</span></a>
   </li>
   {% else %}
   <li class="disabled page-link" aria-label="Previous">
@@ -34,12 +43,8 @@
   </li>
   {% endif %} {% endfor %} {% if bugs.has_next %}
   <li class="page-item">
-    <a
-      href="?page={{ bugs.next_page_number }}"
-      class="page-link"
-      aria-label="Next"
-      ><span aria-hidden="true">&raquo;</span></a
-    >
+    <a href="?page={{ bugs.next_page_number }}" class="page-link" aria-label="Next"><span
+        aria-hidden="true">&raquo;</span></a>
   </li>
   {% else %}
   <li class="disabled page-item page-link" aria-label="Next">
@@ -47,4 +52,5 @@
   </li>
   {% endif %}
 </ul>
-{% endif %} {% endblock %}
+{% endif %}
+{% endblock %}
