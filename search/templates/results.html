@@ -1,11 +1,28 @@
-{% extends 'base.html'%} {% block content %} {% for result in results %}
-<p>Title:{{ result.title }}</p>
-<p>Description:{{ result.description }}</p>
-<p>Status:{{ result.status }}</p>
-<p>Tag:{{ result.tag }}</p>
-<a href="#" role="button" class="btn btn-default"
-  >More</a
->
-<hr />
-{% endfor %}
-{% endblock %}
+{% extends 'base.html'%} {% block content %} 
+<div class="container">
+    <div class="row">
+      {% for result in results %}
+      <div class="col-sm-12 col-md-4 mb-2">
+        <div class="card bg-c-card order-card">
+          <div class="card-body">
+            {% if result.status == 'TODO' %}
+            <h3 class="card-title text-center bg-danger">{{ result.title }}</h3>
+            <p class="text-sm-right"><small>{{ result.status }}</small></p>
+            {% elif result.status == 'DOING' %}
+            <h3 class="card-title text-center bg-warning">{{ result.title }}</h3>
+            <p class="text-sm-right"><small>{{ result.status }}</small></p>
+            {% else %}
+            <h3 class="card-title text-center bg-success">{{ result.title }}</h3>
+            <p class="text-sm-right"><small>{{ result.status }}</small></p>
+            {% endif %}
+            <h6 class="card-text text-left ml-1"><span>{{ result.description }}</span></h6>
+            <a href="#" role="button" class="btn btn-dark btn-circle float-right mt-2"><i
+                class="fa fa-arrow-down " aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+ {% endblock %}
