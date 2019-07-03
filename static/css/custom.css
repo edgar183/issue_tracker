@@ -38,12 +38,12 @@ body {
   opacity: 1;
 }
 /************** Comant section style **/
-.comment-wrapper .panel-body {
+.comment-wrapper  {
   max-height: 650px;
   overflow: auto;
 }
 
-.comment-wrapper .media-list .media img {
+.comment-wrapper .media img {
   width: 64px;
   height: 64px;
   border: 2px solid #e5e7e8;
