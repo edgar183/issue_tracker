@@ -1,15 +1,30 @@
-{% extends 'base.html'%} {% block content %} {% for feature in features %}
-<p>Title:{{ feature.title }}</p>
-<p>Description:{{ feature.description }}</p>
-<p>Status:{{ feature.status }}</p>
-<a
-  href="{% url 'feature_detail' feature.id %}"
-  role="button"
-  class="btn btn-dark"
-  >More</a
->
-<hr />
-{% endfor %}
+{% extends 'base.html'%} {% block content %} 
+<div class="container">
+  <div class="row">
+    {% for feature in features %}
+    <div class="col-sm-12 col-md-4 mb-2">
+      <div class="card bg-c-card order-card">
+        <div class="card-body">
+          {% if feature.status == 'TODO' %}
+          <h3 class="card-title text-center bg-danger">{{ feature.title }}</h3>
+          <p class="text-sm-right"><small>{{ feature.status }}</small></p>
+          {% elif feature.status == 'DOING' %}
+          <h3 class="card-title text-center bg-warning">{{ feature.title }}</h3>
+          <p class="text-sm-right"><small>{{ feature.status }}</small></p>
+          {% else %}
+          <h3 class="card-title text-center bg-success">{{ feature.title }}</h3>
+          <p class="text-sm-right"><small>{{ feature.status }}</small></p>
+          {% endif %}
+          <h6 class="card-text text-left ml-1"><span>{{ feature.description }}</span></h6>
+          <a href="{% url 'feature_detail' feature.id %}" role="button" class="btn btn-dark btn-circle float-right mt-2"><i
+              class="fa fa-arrow-down " aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 <!-- Pagination -->
 {% if features.has_other_pages %}
 <ul class="pagination">
