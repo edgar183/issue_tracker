@@ -141,7 +141,7 @@
           <ul class="media-list p-2 bg-white">
             {% for comment in comments %}
             <li class="media">
-              <img src="{{ user.profile.image.url }}" alt="profile image" class="rounded-circle">
+              <img src="{{ comment.author.profile.image.url }}" alt="profile image" class="rounded-circle">
               </a>
               <div class="media-body">
                 <span class="text-muted pull-right">
