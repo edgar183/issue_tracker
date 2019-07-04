@@ -16,9 +16,8 @@
   <!--Font Awesome-->
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  {% include 'base/js.html' %}
-  {% block head_js %}
-  {% endblock %}
+
+
   <title>Issue Tracker</title>
 </head>
 
@@ -55,7 +54,7 @@
         </li>
         {%  else %}
         <li class="nav-item">
-          <a class="nav-link " href="{% url 'register' %}"><i class="fa fa-user-plus" aria-hidden=" true"></i>
+          <a class="nav-link " href="{% url 'register' %}"><i class="fa fa-user-plus" aria-hidden="true"></i>
             Register</a>
         </li>
         <li class="nav-item">
@@ -114,11 +113,14 @@
       </div>
     </div>
   </div>
-
+  {% block head_js %}
+  {% include 'base/js.html' %}
   <script>
     $(document).ready(function () {
     })
   </script>
+  {% endblock %}
+
 </body>
 
 </html>

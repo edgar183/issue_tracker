@@ -3,17 +3,17 @@
 {% load crispy_forms_tags %}
 
 {% block head_js %}
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-<script type="text/javascript">
+<script src="https://js.stripe.com/v2/"></script>
+<script>
   //<![CDATA[
   Stripe.publishableKey = '{{ publishable }}';
     //]]>
 </script>
-<script type="text/javascript" src="{% static 'js/stripe.js' %}"></script>
+<script src="{% static 'js/stripe.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-<div class=col-12">
+<div class="col-12">
   <table id="cart" class="table table-hover table-condensed">
     <thead>
       <tr>
