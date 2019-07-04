@@ -35,7 +35,8 @@
             </div>
           </div>
         </td>
-        <td data-th="Price">€{{ item.feature.price }}</td>
+        <td data-th="Price"><i class="fa fa-eur" aria-hidden="true"></i>
+          {{ item.feature.price }}</td>
         <td data-th="Quantity" class="text-center">{{ item.quantity }}</td>
         <td data-th="Subtotal" class="text-center">{% widthratio  item.feature.price 1 item.quantity %}</td>
       </tr>
@@ -45,18 +46,19 @@
       <tr>
         <td></td>
         <td colspan="2" class="hidden-xs"></td>
-        <td class="hidden-xs text-center"><strong>Total €{{ total }}</strong></td>
+        <td class="hidden-xs text-center"><strong>Total <i class="fa fa-eur" aria-hidden="true"></i>
+            {{ total }}</strong></td>
       </tr>
     </tfoot>
   </table>
 </div>
 
-  <form role="form" method="post" id="payment-form" action="{% url 'checkout' %}">
-    <legend>Payment Details</legend>
-    <div id="credit-card-errors" style="display: none;">
-      <div class="alert-message block-message error" id="stripe-error-message"></div>
-    </div>
-<div class="row">
+<form role="form" method="post" id="payment-form" action="{% url 'checkout' %}">
+  <legend>Payment Details</legend>
+  <div id="credit-card-errors" style="display: none;">
+    <div class="alert-message block-message error" id="stripe-error-message"></div>
+  </div>
+  <div class="row">
     <div class="form-group col-md-6">
       {{ order_form| crispy }}
     </div>
@@ -64,10 +66,10 @@
       {{ payment_form| crispy }}
     </div>
   </div>
-    {% csrf_token %}
-    <div class="form-group col-md-12">
-      <input class=" btn btn-outline-success" id="submit_payment_btn" name="commit" type="submit" value="Submit Payment">
-    </div>
-  </form>
-  
+  {% csrf_token %}
+  <div class="form-group col-md-12">
+    <input class=" btn btn-outline-success" id="submit_payment_btn" name="commit" type="submit" value="Submit Payment">
+  </div>
+</form>
+
 {% endblock %}

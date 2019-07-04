@@ -24,7 +24,7 @@
           </div>
         </div>
       </td>
-      <td data-th="Price">€{{ item.feature.price }}</td>
+      <td data-th="Price"><i class="fa fa-eur" aria-hidden="true"></i> {{ item.feature.price }}</td>
       <form class="form-inline" method="post" action="{% url 'adjust_cart' item.id %}">
         {% csrf_token %}
         <td data-th="Quantity">
@@ -45,8 +45,10 @@
       <td><a href="{% url 'features' %}" class="btn btn-outline-warning"><i class="fa fa-angle-left"
             aria-hidden="true"></i> Continue Shopping</a></td>
       <td colspan="2" class="hidden-xs"></td>
-      <td class="hidden-xs text-center"><strong>Total €{{ total }}</strong></td>
-      <td><a href="{% url 'checkout' %}" class="btn btn-outline-success ">Checkout <i class="fa fa-angle-right"></i></a></td>
+      <td class="hidden-xs text-center"><strong>Total <i class="fa fa-eur" aria-hidden="true"></i>
+          {{ total }}</strong></td>
+      <td><a href="{% url 'checkout' %}" class="btn btn-outline-success ">Checkout <i class="fa fa-angle-right"></i></a>
+      </td>
     </tr>
   </tfoot>
 </table>
