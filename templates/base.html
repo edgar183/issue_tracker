@@ -16,6 +16,7 @@
   <!--Font Awesome-->
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  {% include 'base/js.html' %}
   {% block head_js %}
   {% endblock %}
   <title>Issue Tracker</title>
@@ -24,8 +25,8 @@
 <body>
   <!-- bootstrap navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{% url 'index' %}"> <img class="mr-2" src="{% static 'image/bug-logo.png' %}"
-        width="30" height="30" class="d-inline-block align-top" alt="bookbug logo">bookbug</a>
+    <a class="navbar-brand d-inline-block align-top" href="{% url 'index' %}"> <img class="mr-2"
+        src="{% static 'image/bug-logo.png' %}" width="30" height="30" alt="bookbug logo">bookbug</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -35,26 +36,26 @@
       <ul class="navbar-nav mr-auto ">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'profile' %}"><i class="fa fa-user aria-hidden=" true""></i> Profile</a>
+          <a class="nav-link" href="{% url 'profile' %}"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             New
           </a>
-          <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item text-info" href="{% url 'new_bug' %}"><i class="fa fa-bug aria-hidden=" true""></i>
-              Bug</a>
-            <a class="dropdown-item text-info" href="{% url 'new_feature' %}"><i class="fa fa-lightbulb aria-hidden="
-                true""></i> Feature</a>
+          <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown1">
+            <a class="dropdown-item text-info" href="{% url 'new_bug' %}"><i class="fa fa-bug"
+                aria-hidden="true"></i>Bug</a>
+            <a class="dropdown-item text-info" href="{% url 'new_feature' %}"><i class="fa fa-lightbulb" aria-hidden="
+                true"></i> Feature</a>
           </div>
         </li>
         {%  else %}
         <li class="nav-item">
-          <a class="nav-link " href="{% url 'register' %}"><i class="fa fa-user-plus aria-hidden=" true""></i>
+          <a class="nav-link " href="{% url 'register' %}"><i class="fa fa-user-plus" aria-hidden=" true"></i>
             Register</a>
         </li>
         <li class="nav-item">
@@ -62,23 +63,23 @@
         </li>
         {% endif %}
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Issues
           </a>
-          <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item text-info" href="{% url 'bugs' %}"><i class="fa fa-bug aria-hidden=" true""></i>
+          <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown2">
+            <a class="dropdown-item text-info" href="{% url 'bugs' %}"><i class="fa fa-bug" aria-hidden="true"></i>
               Bugs</a>
-            <a class="dropdown-item text-info" href="{% url 'features' %}"><i class="fa fa-lightbulb aria-hidden="
-                true""></i> Features</a>
+            <a class="dropdown-item text-info" href="{% url 'features' %}"><i class="fa fa-lightbulb"
+                aria-hidden="true"></i> Features</a>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-chart-area aria-hidden=" true""></i>
+          <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-chart-area" aria-hidden="true"></i>
             Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'view_cart' %}"><i class="fa fa-shopping-cart aria-hidden=" true""></i> Cart
+          <a class="nav-link" href="{% url 'view_cart' %}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart
             {% if product_count > 0 %}
             <label class="badge badge-warning">{{ product_count }}</label>
             {% endif %}
@@ -87,8 +88,8 @@
       </ul>
       <form action="{% url 'search' %}" method="get" class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" name=q placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="fa fa-search aria-hidden="
-            true"f"></i> Search</button>
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i>
+          Search</button>
       </form>
     </div>
   </nav>
@@ -113,7 +114,7 @@
       </div>
     </div>
   </div>
-  {% include 'base/js.html' %}
+
   <script>
     $(document).ready(function () {
     })
