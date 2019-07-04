@@ -3,12 +3,13 @@
     with features upvote icrease if customer paid.
     Features upvote can only be purchesed
 '''
-import stripe
+
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
 from django.utils import timezone
+import stripe
 from issues.models import Feature
 from .forms import MakePaymentForm, OrderForm
 from .models import OrderLineItem
@@ -63,14 +64,14 @@ def checkout(request):
                     feature = Feature.objects.get(pk=id)
                     feature.upvotes += quantity
                     feature.save()
+
                 request.session['cart'] = {}
                 return redirect(reverse('features'))
             else:
                 messages.error(request, "Unable to take payment")
         else:
             print(payment_form.errors)
-            messages.error(
-                request, "We were unable to take a payment with that card!")
+            messages.error(request, "We were unable to take a payment with that card!")
     else:
         payment_form = MakePaymentForm()
         order_form = OrderForm()
