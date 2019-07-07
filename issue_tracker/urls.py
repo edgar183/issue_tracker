@@ -20,15 +20,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from accounts import urls as urls_accounts
 from issues import urls as urls_issues
-from issues.views import all_bugs
 from search import urls as urls_search
 from cart import urls as urls_cart
 from checkout import urls as urls_checkout
 from dashboard import urls as urls_chart
+from home.views import index
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', all_bugs, name='index'),
+    url(r'^$', index, name='index'),
     url(r'^accounts/', include(urls_accounts)),
     url(r'^issues/', include(urls_issues)),
     url(r'^search/', include(urls_search)),
