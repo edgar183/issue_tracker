@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG')
 
 ALLOWED_HOSTS = ['119aaaf7d67e49c6ad0e249829cfc7fe.vfs.cloud9.eu-west-1.amazonaws.com', '127.0.0.1', 'edgars-issue-tracker.herokuapp.com']
 
