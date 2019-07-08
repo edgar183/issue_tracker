@@ -17,11 +17,11 @@
           {% endif %}
           <h6 class="card-text text-left ml-1"><span>{{ result.description }}</span></h6>
           {% if result.model_name == 'Bug' %}
-          <a href="{% url 'bug_detail' result.id" role="button" class="btn btn-dark btn-circle float-right mt-2"><i class="fa fa-arrow-down "
-              aria-hidden="true">Bug</i></a>
+          <a href="{% url 'bug_detail' result.id %}" role="button" class="btn btn-dark btn-circle float-right mt-2"><i class="fa fa-arrow-down "
+              aria-hidden="true"></i></a>
           {% elif result.model_name == 'Feature' %}
-          <a href="#feature" role="button" class="btn btn-dark btn-circle float-right mt-2"><i class="fa fa-arrow-down "
-              aria-hidden="true">Feature</i></a>
+          <a href="{% url 'feature_detail' result.id %}" role="button" class="btn btn-dark btn-circle float-right mt-2"><i class="fa fa-arrow-down "
+              aria-hidden="true"></i></a>
           {% else %}
           <a href="#" role="button" class="btn btn-dark btn-circle float-right mt-2">No Link</a>
           {% endif %}
