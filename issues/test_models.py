@@ -12,10 +12,10 @@ class TestBugModel(TestCase):
 
     def test_create_bug(self):
         user = User()
-        user.save()
+        #user.save()
         bug = Bug(title="Test bug title",
                   description="Test bug description", author=user, tag="Test")
-        bug.save()
+        #bug.save()
         self.assertEqual(bug.title, "Test bug title")
         self.assertEqual(bug.description, "Test bug description")
         self.assertEqual(bug.author, user)
