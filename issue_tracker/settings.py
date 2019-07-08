@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+DEBUG = os.environ.get('DEBUG_STATUS')
 
 ALLOWED_HOSTS = ['119aaaf7d67e49c6ad0e249829cfc7fe.vfs.cloud9.eu-west-1.amazonaws.com', '127.0.0.1', 'edgars-issue-tracker.herokuapp.com']
 
@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'issue_tracker.wsgi.application'
 if "DATABASE_URL" in os.environ:
     DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 else:
-    print("Postgres URL not foi=und, usding sqlite instead")
+    print("Postgres URL not found, usding sqlite instead")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
