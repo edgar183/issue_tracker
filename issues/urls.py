@@ -1,4 +1,4 @@
-from django.conf.urls import url, include
+from django.conf.urls import url
 from .views import (
     all_bugs,
     all_features,
@@ -8,7 +8,6 @@ from .views import (
     feature_detail,
     create_or_edit_bug_comment,
     upvote_bug,
-    upvote_feature,
     create_or_edit_feature_comment,
     delete_bug,
     delete_feature,
@@ -42,7 +41,6 @@ urlpatterns = [
         create_or_edit_feature_comment, name='new_feature_comment'),
     url(r'feature/(?P<feature_pk>\d+)/comments/(?P<pk>\d+)/edit/$',
         create_or_edit_feature_comment, name='edit_feature_comment'),
-    url(r'^(?P<pk>\d+)/upvote/$', upvote_feature, name='upvote_feature'),
     url(r'feature/(?P<pk>\d+)/delete_feature/$',
         delete_feature, name='delete_feature'),
     url(r'^featuer/(?P<feature_pk>\d+)/delete_comment/(?P<pk>\d+)/$',

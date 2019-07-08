@@ -89,6 +89,7 @@ def upvote_bug(request, pk):
     messages.success(request, 'Bug upvoted!')
     return redirect('bug_detail', pk)
 
+
 @login_required()
 def delete_bug(request, pk=None):
     bug_id = int(pk)
@@ -101,7 +102,9 @@ def delete_bug(request, pk=None):
 
             return redirect('bugs')
     else:
-        messages.success(request, 'You do not have premission to delete this bug.')
+        messages.success(
+            request, 'You do not have premission to delete this bug.')
+
 
 def delete_bug_comment(request, bug_pk, pk=None):
     bug = get_object_or_404(Bug, pk=bug_pk)
@@ -113,7 +116,9 @@ def delete_bug_comment(request, bug_pk, pk=None):
             messages.success(request, 'The comment has been deleted.')
             return redirect('bug_detail', bug_pk)
     else:
-        messages.success(request, 'You do not have premission to delete this comment.')
+        messages.success(
+            request, 'You do not have premission to delete this comment.')
+
 
 def all_features(request):
     """
@@ -188,14 +193,6 @@ def create_or_edit_feature_comment(request, feature_pk, pk=None):
 
 
 @login_required()
-def upvote_feature(request, pk):
-    feature = Feature.objects.get(pk=pk)
-    feature.upvotes += 1
-    feature.save()
-    messages.success(request, 'Feature upvoted!')
-    return redirect('feature_detail', pk)
-
-@login_required()
 def delete_feature(request, pk=None):
     if request.method == 'POST':
         feature_id = int(pk)
@@ -203,6 +200,7 @@ def delete_feature(request, pk=None):
         obj.delete()
 
         return redirect('features')
+
 
 def delete_feature_comment(request, feature_pk, pk=None):
     feature = get_object_or_404(Feature, pk=feature_pk)
@@ -214,4 +212,5 @@ def delete_feature_comment(request, feature_pk, pk=None):
             messages.success(request, 'The comment has been deleted.')
             return redirect('feature_detail', feature_pk)
     else:
-        messages.success(request, 'You do not have premission to delete this comment.')
+        messages.success(
+            request, 'You do not have premission to delete this comment.')
