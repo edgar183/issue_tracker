@@ -9,7 +9,7 @@ The issue tracking web application that allows users to create issues tickets, c
   - ‘features’ that are only implemented if offered enough money.
 - To help prioritize the work, users are able to upvote bugs - signifying ‘I have this too’, and upvote feature requests - signifying ‘I want to have this too’ (features can be upvoted after purchasing them).
 - This is a full stack web application (frontend and backend) that provides CRUD (Create, Read, Update, Delete) functionality to a database hosted in the cloud on Heroku platform as a service.
-
+#### [Issue Tracker webiste](https://edgars-issue-tracker.herokuapp.com/)
 ## UX Design
 
 This application is for users that are using [Book Reading Lists](https://book-reading-lists.herokuapp.com/index) web application and have encountered any bugs that they can report using **'bookbug'** issue tracking system or they want a new feature to be implemented in the application.
