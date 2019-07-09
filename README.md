@@ -87,7 +87,7 @@ Super User:
 
 ## Testing
 
-Automated tests are located in the issues app in test_models.py, test_forms.py and test_views.py. These 25 tests passed as per screenshot in testing folder. To run the test:
+Automated tests are located in the issues app in test_models.py, test_forms.py and test_views.py. These 25 tests passed as per screenshot in [testing folder](https://github.com/edgar183/issue_tracker/tree/master/testing). To run the test:
 `python3 manage.py test`
 
 Manual testing was undertaken for this application and satisfactorily passed. A sample of the tests conducted are as follows:
