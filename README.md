@@ -87,7 +87,7 @@ Super User:
 
 ## Testing
 
-Automated tests are located in the Issues app in test_models.py, test_forms.py and test_views.py. These 16 tests passed as per screenshot in Testing folder. To run the test:
+Automated tests are located in the issues app in test_models.py, test_forms.py and test_views.py. These 25 tests passed as per screenshot in testing folder. To run the test:
 `python3 manage.py test`
 
 Manual testing was undertaken for this application and satisfactorily passed. A sample of the tests conducted are as follows:
@@ -96,7 +96,7 @@ Manual testing was undertaken for this application and satisfactorily passed. A 
 2. Testing the CRUD functionality: adding and editing Bugs, Features and Comments.
 3. Testing the responsiveness of the application on different browsers and then using different devices.
 4. Testing ecommerce functionality: generating order transactions with Add to Cart, Checkout and payments with Stripe test card details.
-# 5. Testing image upload to AWS S3 bucket.?????
+5. Testing image upload to AWS S3 bucket.
 
 ## Deployment
 
