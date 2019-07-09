@@ -9,3 +9,5 @@ env.py
 media/
 htmlcov
 .coverage
+pytest.ini
+.pytest_cache/
