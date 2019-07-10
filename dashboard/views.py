@@ -9,20 +9,13 @@ import json
 
 
 def chart(request):
-
-    return render(request, "dashboard.html")
-
-
-def get_issue_type_json(request):
-    lables = ["Bugs", "Features"]
     count_bugs = Bug.objects.all().count()
     count_features = Feature.objects.all().count()
-    data = {
-        'lables': lables,
-        'count': [count_bugs, count_features],
+    context = {
+        'bugs': count_bugs,
+        'features': count_features
     }
-    return JsonResponse(data)
-
+    return render(request, "dashboard.html", context)
 
 def get_bug_status_json(request):
     lables = ["Todo", "Doing", "Done"]
@@ -58,7 +51,7 @@ def get_bug_upvotes_json(request):
     for item in dataset:
         bug_titles.append(item['title'])
         bug_upvotes.append(item['upvotes'])
-    
+
     data = {
         'lables': bug_titles,
         'dataset': bug_upvotes
