@@ -71,7 +71,7 @@ Super User:
 ### Features Left to Implement
 
 1. Superuser can assign new staff members to form his profile page.
-2. User can replay on the comment
+2. User can reply on the comment
 3. Add information in dashboard about a number of issues tended to on a daily, weekly and monthly basis.
 4. Create a blog page to post updates about the main application
 
@@ -134,6 +134,6 @@ The photos used in this site were obtained from:
 
 ### Acknowledgements
 
-I used the following [blog](https://simpleisbetterthancomplex.com/) for tutorials on various Django topics such as AWS S3 integration, forms, integration
+I used the following [blog](https://simpleisbetterthancomplex.com/) for tutorials on various Django topics.
 
 The Accounts, Cart and Checkout apps are based upon the sample apps from the User Authentication and Authorisation and Ecommerce mini project components of the Full Stack Frameworks with Django module.
