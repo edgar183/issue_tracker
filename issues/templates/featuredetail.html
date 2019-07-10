@@ -98,7 +98,7 @@
     <label style="font-weight:bold;">Buy</label>
   </div>
   <div class="col-md-8 col-6">
-    <form method="post" action="{% url 'add_to_cart' feature.id %}">
+    <form method="post" action="{% url 'add_to_cart' feature.id %}" novalidate>
       {% csrf_token %}
       <div class="input-group">
         <input name="quantity" type="number" min="1" max="999" class="form-control mb-2" placeholder="Quantity">
@@ -118,7 +118,7 @@
       Edit</a>
   </div>
   <div class="col-md-6">
-    <form method="post" action="{% url 'delete_feature' feature.id %}" class="accountform">
+    <form method="post" action="{% url 'delete_feature' feature.id %}" class="accountform" novalidate>
       {% csrf_token %}
       <button type="submit" class="btn btn-danger float-right"><i class="fa fa-trash" aria-hidden="true"></i>
         Delete</button>
@@ -164,8 +164,8 @@
                       aria-hidden="true"></i> Edit</a>
                 </div>
                 <div class="col-md-6">
-                  <form method="post" action="{% url 'delete_feature_comment' feature.id comment.id %}"
-                    class="accountform">
+                  <form method="post" action="{% url 'delete_feature_comment' feature.id comment.id %} "
+                    class="accountform" novalidate>
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger float-right"><i class="fa fa-trash"
                         aria-hidden="true"></i> Delete</button>

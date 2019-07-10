@@ -93,7 +93,7 @@
       </div>
       <!-- Update Profile Info Tab -->
       <div class="tab-pane fade show" id="updateProfile" role="tabpanel" aria-labelledby="updateProfile-tab">
-        <form method="POST" action="{% url 'profile' %}" enctype="multipart/form-data" class="accountform">
+        <form method="POST" action="{% url 'profile' %}" enctype="multipart/form-data" class="accountform" novalidate>
           <fieldset class="form-group">
             {% csrf_token %} {{ u_form|crispy }}
             {{ p_form|crispy }}

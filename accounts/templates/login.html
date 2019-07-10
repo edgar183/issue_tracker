@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <form method="post" action="{% url 'login' %}?next={{ next }}" class="accountform">
+    <form method="post" action="{% url 'login' %}?next={{ next }}" class="accountform" novalidate>
         <fieldset class="form-group">
             <legend class="font-weight-bold">Login</legend>
             {% csrf_token %}

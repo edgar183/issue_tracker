@@ -94,7 +94,7 @@
       Edit</a>
   </div>
   <div class="col-md-6">
-    <form method="post" action="{% url 'delete_bug' bug.id %}" class="accountform">
+    <form method="post" action="{% url 'delete_bug' bug.id %}" class="accountform" novalidate>
       {% csrf_token %}
       <button type="submit" class="btn btn-danger float-right"><i class="fa fa-trash" aria-hidden="true"></i>
         Delete</button>
@@ -142,7 +142,7 @@
                       aria-hidden="true"></i> Edit</a>
                 </div>
                 <div class="col-md-6">
-                  <form method="post" action="{% url 'delete_bug_comment' bug.id comment.id %}" class="accountform">
+                  <form method="post" action="{% url 'delete_bug_comment' bug.id comment.id %}" class="accountform" novalidate>
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger float-right"><i class="fa fa-trash"
                         aria-hidden="true"></i> Delete</button>

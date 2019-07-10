@@ -53,7 +53,7 @@
   </table>
 </div>
 
-<form role="form" method="post" id="payment-form" action="{% url 'checkout' %}">
+<form role="form" method="post" id="payment-form" action="{% url 'checkout' %}" novalidate>
   <legend>Payment Details</legend>
   <div id="credit-card-errors" style="display: none;">
     <div class="alert-message block-message error" id="stripe-error-message"></div>

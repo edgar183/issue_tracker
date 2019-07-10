@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="form-group">
-  <form method="post" enctype="multipart/form-data">
+  <form method="post" novalidate>
     <fieldset class="form-group">
       <legend class="font-weight-bold">Create a new Feature</legend>
       {% csrf_token %}

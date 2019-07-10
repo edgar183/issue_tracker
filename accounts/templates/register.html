@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<form method="post" action="{% url 'register' %}" class="accountform">
+<form method="post" action="{% url 'register' %}" class="accountform" novalidate>
     <fieldset class="form-group">
         <legend class="font-weight-bold">Create a new account</legend>
         <p class="blockquote-footer">Already got an account? <a href="{% url 'login' %}"

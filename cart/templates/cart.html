@@ -25,7 +25,7 @@
         </div>
       </td>
       <td data-th="Price"><i class="fa fa-eur" aria-hidden="true"></i> {{ item.feature.price }}</td>
-      <form class="form-inline" method="post" action="{% url 'adjust_cart' item.id %}">
+      <form class="form-inline" method="post" action="{% url 'adjust_cart' item.id %}" novalidate>
         {% csrf_token %}
         <td data-th="Quantity">
           <input name="quantity" type="number" min="0" max="999" class="form-control text-center"
