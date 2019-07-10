@@ -38,7 +38,7 @@ body {
   opacity: 1;
 }
 /************** Comant section style **/
-.comment-wrapper  {
+.comment-wrapper {
   max-height: 650px;
   overflow: auto;
 }
@@ -58,7 +58,6 @@ body {
   background: linear-gradient(45deg, #e2e2e2, #dddde0);
 }
 .btn-circle {
-  
   width: 30px;
   height: 30px;
   padding: 6px 0px;
@@ -67,3 +66,6 @@ body {
   font-size: 16px;
   line-height: 0.42857;
 }
+.text-size-dashboard {
+  font-size: 150px;
+  }
